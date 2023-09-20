@@ -112,8 +112,7 @@ namespace Services
             stopwatch.Stop();
             long searchTime = stopwatch.ElapsedTicks;
             Console.WriteLine("\n");
-            Console.WriteLine("Время поиска в списке в тиках - ");
-            Console.WriteLine(searchTime);
+            Console.WriteLine($"Время поиска в списке - {searchTime} тиков");
 
             return clientPhone;
         }
@@ -152,8 +151,7 @@ namespace Services
             stopwatch.Stop();
             long searchTime = stopwatch.ElapsedTicks;
 
-            Console.WriteLine("Время поиска в словаре в тиках - ");
-            Console.WriteLine(searchTime);
+            Console.WriteLine($"Время поиска в словаре - {searchTime} тиков");
             Console.WriteLine("\n");
 
             return clientPhone;
@@ -222,7 +220,7 @@ namespace Services
             Console.WriteLine("\n");
         }
 
-
+        /*
         //реализовать метод, генерирующий словарь, где в качестве ключа находятся клиенты, а в качестве значения их банковский счет;
         public static Dictionary<Client, Account> CreateDictionaryClientAccount(List<Client> clients)
         {
@@ -237,6 +235,29 @@ namespace Services
             }
             return dictionary;
         }
+        */
+
+        // метод, генерирующий словарь, где в качестве ключа находятся клиенты, а в качестве значения несколько банковских счетов;
+        public static Dictionary<Client, List<Account>> CreateDictionaryClientAccountList(List<Client> clients)
+        {
+            Dictionary<Client, List<Account>> dictionary = new Dictionary<Client, List<Account>>();
+
+            foreach (Client client in clients)
+            {
+                List<Account> accounts = new List<Account>();
+                accounts.Add(GenerateNewAccount());
+                accounts.Add(GenerateNewAccount());
+                dictionary[client] = accounts;
+
+                Console.WriteLine($"Клиент {client.ClientId} имеет {accounts.Count} аккаунты:");
+                foreach (Account account in accounts)
+                {
+                    Console.WriteLine($" Id аккаунта: {account.AccountId}. Баланс: {account.Amount}");
+                }
+            }
+
+            return dictionary;
+        }
 
         // генерация нового аккаунта
         public static Account GenerateNewAccount()
@@ -245,19 +266,20 @@ namespace Services
             Currency currency = new Currency()
             {
                 Name = "USD",
-                ExchangeRate = 16.3,
+                ExchangeRate = 16.3,                
             };
 
             // создаем сам аккаунт
             Account account = new Account()
             {
+                AccountId = random.Next(100, 9999),
                 Currency = currency,
-                Amount = random.Next(10000, 99999),
+                Amount = random.Next(0, 99999),
             };
 
             return account;
 
         }
-
+        
     }
 }

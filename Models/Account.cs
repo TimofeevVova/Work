@@ -8,6 +8,7 @@ namespace Models
 {
     public class Account : Client // банковский счет клиента (Валюта Сумма)
     {
+        public int AccountId { get; set; }
         public Currency Currency { get; set; }
         public int Amount { get; set; }
 

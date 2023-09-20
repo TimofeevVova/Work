@@ -6,24 +6,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Services;
 using Models;
+using System.Collections;
 
 namespace ServiceTests
 {
     public class EquivalenceTests
     {
         static Random random = new Random();
-        
+
         // создать нового клиента, данные которого есть в словаре и попробовать получить данные аккаунта по этому клиенту как ключу
-        public static Account GetHashCodeNecessityPositivTest(int count)
+        //усложнить задачу на случай, когда у клиента несколько банковских счетов;
+        public static List<Account> GetHashCodeNecessityPositivTest(int count)
         {            
-            // количество данных
-            
             //генерация кликентов
             var GenerationClients = TestDataGenerator.Generation1000Clients(count);
-            //генерация коллекции клиент-банковский счет
-            var DictionatyClientCurrency = TestDataGenerator.CreateDictionaryClientAccount(GenerationClients);
+            
+            //генерация коллекции клиент- несколько банковских счетов
+            var DictionatyClientAccountList = TestDataGenerator.CreateDictionaryClientAccountList(GenerationClients);
 
-            Account account = new Account();
+            List<Account> account = new List<Account>();
 
             //Создание рандомного клиента
             int value = random.Next(1, count);
@@ -42,22 +43,24 @@ namespace ServiceTests
                 }
             }
 
+            Console.WriteLine("\n");
             Console.WriteLine($"Новый клиент: Имя -{newClient.FirstName} Фамилия - {newClient.LastName} Айди - {newClient.ClientId} Маил - {newClient.Email}");
 
-            // поиск аккаунта по клиенту (изначально получил ошибку, затем переопределил метода Equals и GetHashCode)
-            if (DictionatyClientCurrency.TryGetValue(newClient, out account))
+            // перебор и сохранение всех аккаунтов клиента
+            if (DictionatyClientAccountList.TryGetValue(newClient, out List<Account> clientAccounts))
             {
-                Console.WriteLine($"Найден аккаунт для клиента {newClient.ClientId}:");
-                Console.WriteLine($"Баланс аккаунта - {account.Amount}");
+                Console.WriteLine($"Найдены аккаунты для клиента {newClient.ClientId}:");
+                foreach (Account account2 in  clientAccounts)
+                {
+                    Console.WriteLine($"Id аккаунта - {account2.AccountId}");
+                    account.Add(account2);
+                }
             }
             else
             {
-                Console.WriteLine($"Аккаунт не найден для клиента {newClient.ClientId}");
+                Console.WriteLine($"Аккаунты не найдены для клиента {newClient.ClientId}");
             }
             return account;
-        }
-
-        //усложнить задачу на случай, когда у клиента несколько банковских счетов;
-        //Реализовать аналогичный тест для списка - List<Emloyee>
+        }        
     }
 }

@@ -28,7 +28,7 @@ namespace PracticeWithTypes
             BasicMethods.TimeTracking();            
             
             
-            int count = 100;
+            int count = 5;
             //генерация кликентов
             var GenerationClients = TestDataGenerator.Generation1000Clients(count);
             
@@ -54,11 +54,15 @@ namespace PracticeWithTypes
 
             //сравнение времени поиска последнего элемента списка
             TestDataGenerator.TwoSearchTypes(DictionaryFromList);
-            
+            /*
             //генерация коллекции клиент-банковский счет
-            var DictionatyClientCurrency = TestDataGenerator.CreateDictionaryClientAccount(GenerationClients);
-
-            // ошибочный запрос на поиск аккауна по клиенту
+            var DictionatyClientAccount = TestDataGenerator.CreateDictionaryClientAccount(GenerationClients);
+            
+            //генерация коллекции клиент- несколько банковских счетов
+            var DictionatyClientAccountList = TestDataGenerator.CreateDictionaryClientAccountList(GenerationClients);
+            */
+            
+            // запрос на поиск аккауна по клиенту
             var findAccountFromClient = EquivalenceTests.GetHashCodeNecessityPositivTest(count);
             Console.ReadKey();
         }
