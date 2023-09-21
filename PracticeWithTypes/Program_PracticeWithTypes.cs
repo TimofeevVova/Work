@@ -64,6 +64,11 @@ namespace PracticeWithTypes
             
             // запрос на поиск аккауна по клиенту
             var findAccountFromClient = EquivalenceTests.GetHashCodeNecessityPositivTest(count);
+
+
+
+
+
             Console.ReadKey();
         }
     }

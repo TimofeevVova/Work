@@ -27,14 +27,14 @@ namespace Services
                     ClientId = i + 1,
                     FirstName = SettingsGenerator.GetRandomFirstName(),
                     LastName = SettingsGenerator.GetRandomName(),
-                    Age = SettingsGenerator.GetRandomAge(),
+                    DateOfBirth = SettingsGenerator.GetRandomDateOfBirth(),
                     Address = SettingsGenerator.GetRandomAddress(),
                     Email = SettingsGenerator.GetRandomEmail(),
                     PhoneNumber = SettingsGenerator.GetRandomPhoneNumber()
                 };
                 clients.Add(client);
 
-                //Console.WriteLine($"Id - {client.ClientId}\nИмя - {client.FirstName}\nФамилия - {client.LastName}\nВозраст - {client.Age}\nАдрес - {client.Address}\nМаил - {client.Email}\nТелефон - {client.PhoneNumber}\n");
+                //Console.WriteLine($"Id - {client.ClientId}\nИмя - {client.FirstName}\nФамилия - {client.LastName}\nДата рождения - {client.DateOfBirth}\nАдрес - {client.Address}\nМаил - {client.Email}\nТелефон - {client.PhoneNumber}\n");
             }
             return clients;
         }
@@ -63,16 +63,15 @@ namespace Services
                     EmployeeId = i + 1,
                     FirstName = SettingsGenerator.GetRandomFirstName(),
                     LastName = SettingsGenerator.GetRandomName(),
-                    Age = SettingsGenerator.GetRandomAge(),
+                    DateOfBirth = SettingsGenerator.GetRandomDateOfBirth(),
                     Address = SettingsGenerator.GetRandomAddress(),
-
                     Department = SettingsGenerator.GetRandomDepartment(),
                     Salary = SettingsGenerator.GetRandomSalary(),
                     Contract = SettingsGenerator.GetRandomContract(),
                 };
                 employees.Add(employee);
 
-                //Console.WriteLine($"Id - {employee.EmployeeId}\nИмя - {employee.FirstName}\nФамилия - {employee.LastName}\nВозраст - {employee.Age}\nАдрес - {employee.Address}\nОтдел - {employee.Department}\nЗарплата - {employee.Salary}\nContract - {employee.Contract}");
+                //Console.WriteLine($"Id - {employee.EmployeeId}\nИмя - {employee.FirstName}\nФамилия - {employee.LastName}\nДатараждения - {employee.DateOfBirth}\nАдрес - {employee.Address}\nОтдел - {employee.Department}\nЗарплата - {employee.Salary}\nContract - {employee.Contract}");
             }
             return employees;
         }
@@ -162,12 +161,14 @@ namespace Services
         {
             List<Client> clientsFromAge = new List<Client>();
 
+            DateTime currentDate = DateTime.Now; // Текущая дата            
+            DateTime dateOfBirth = currentDate.AddYears(-count);
+
             foreach (Client client in clients)
             {
-                if (client.Age < count)
+                if (client.DateOfBirth < dateOfBirth)
                 {
                     clientsFromAge.Add(client);
-                    //Console.WriteLine($"Age - {client.Age}");
                 }
             }
             return clientsFromAge;
@@ -261,25 +262,27 @@ namespace Services
 
         // генерация нового аккаунта
         public static Account GenerateNewAccount()
-        {
-            // создаем валюту
-            Currency currency = new Currency()
-            {
-                Name = "USD",
-                ExchangeRate = 16.3,                
-            };
-
+        {            
             // создаем сам аккаунт
             Account account = new Account()
             {
                 AccountId = random.Next(100, 9999),
-                Currency = currency,
+                Currency = GenerateCurrency(),
                 Amount = random.Next(0, 99999),
             };
-
             return account;
-
         }
-        
+
+        public static Currency GenerateCurrency()
+        {
+            Currency currency = new Currency()
+            {
+                Name = "USD",
+                ExchangeRate = 16.3,
+            };
+
+            return currency;
+        }
+
     }
 }

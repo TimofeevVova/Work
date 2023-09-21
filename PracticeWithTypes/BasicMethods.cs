@@ -18,14 +18,14 @@ namespace PracticeWithTypes
             {
                 FirstName = "Иван",
                 LastName = "Иванов",
-                Age = 26,
+                DateOfBirth = new DateTime(2000, 3, 15),
                 Address = "Тирасполь "
             };
             Employee petya = new Employee // заполнение данных человека и данных сотрудника
             {
                 FirstName = "Петр",
                 LastName = "Петров",
-                Age = 42,
+                DateOfBirth = new DateTime(1982, 7, 20),
                 Address = "Рыбница",
 
                 EmployeeId = 1,
@@ -36,7 +36,7 @@ namespace PracticeWithTypes
             {
                 FirstName = "Анна",
                 LastName = "Сидорова",
-                Age = 31,
+                DateOfBirth = new DateTime(1989, 2, 8),
                 Address = "Днестровск",
 
                 ClientId = 4,
@@ -49,7 +49,7 @@ namespace PracticeWithTypes
                 ExchangeRate = 16.3
             };
 
-            Console.WriteLine($"Person: {vanya.FirstName} {vanya.LastName}, Возраст: {vanya.Age}");
+            Console.WriteLine($"Person: {vanya.FirstName} {vanya.LastName}, Дата рождения: {vanya.DateOfBirth}");
             Console.WriteLine($"Employee: {petya.FirstName} {petya.LastName}, ID сотрудника: {petya.EmployeeId}, Зарплата: {petya.Salary}");
             Console.WriteLine($"Client: {anna.FirstName} {anna.LastName}, ID клиента: {anna.ClientId}, Email: {anna.Email}, Телефон: {anna.PhoneNumber}");
             Console.WriteLine($"Валюта: {usd.Name}, Обменный курс: {usd.ExchangeRate}");
@@ -98,7 +98,7 @@ namespace PracticeWithTypes
             {
                 FirstName = "Игорь",
                 LastName = "Сергеевич",
-                Age = 42,
+                DateOfBirth = new DateTime(1992, 7, 20),
                 Address = "Тирасполь",
 
                 EmployeeId = 1001,
@@ -110,7 +110,7 @@ namespace PracticeWithTypes
             {
                 FirstName = "Игорь",
                 LastName = "",
-                Age = 42,
+                DateOfBirth = new DateTime(1995, 3, 22),
                 Address = "Сейшелы",
 
                 EmployeeId = 1002,
@@ -122,7 +122,7 @@ namespace PracticeWithTypes
             {
                 FirstName = "Игорь",
                 LastName = "",
-                Age = 42,
+                DateOfBirth = new DateTime(1988, 11, 3),
                 Address = "Слободзея",
 
                 EmployeeId = 1003,
@@ -148,7 +148,7 @@ namespace PracticeWithTypes
             {
                 FirstName = "Виталий",
                 LastName = "Новиков",
-                Age = 42,
+                DateOfBirth = new DateTime(1998, 10, 3),
                 Address = "Суклея",
 
                 ClientId = 1,

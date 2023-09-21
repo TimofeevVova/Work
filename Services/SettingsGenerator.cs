@@ -11,6 +11,14 @@ namespace Services
     public class SettingsGenerator
     {
         static Random random = new Random();
+        // Генерация случайной даты рождения в определенном диапазоне
+        private static DateTime startDate = new DateTime(1970, 1, 1); // Начальная дата
+        private static DateTime endDate = new DateTime(2005, 12, 31); // Конечная дата
+        private static TimeSpan timeSpan = endDate - startDate; // Вычисляем диапазон дат
+
+
+
+        
 
         //Настройки генератора
         public static string GetRandomFirstName()
@@ -25,9 +33,11 @@ namespace Services
             return names[random.Next(names.Length)];
         }
 
-        public static int GetRandomAge()
+        public static DateTime GetRandomDateOfBirth()
         {
-            return random.Next(18, 80);
+            int randomDays = random.Next(0, (int)timeSpan.TotalDays); // Генерируем случайное количество дней
+            DateTime randomDateOfBirth = startDate.AddDays(randomDays); // Добавляем случайное количество дней к начальной дате
+            return randomDateOfBirth;
         }
 
         public static string GetRandomAddress()
