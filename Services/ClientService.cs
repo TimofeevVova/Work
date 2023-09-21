@@ -100,12 +100,37 @@ namespace Services
             return null;
         }
 
-
         // метод редактирования ранее добавленного лицевого счета (соответствующая валидация);
+        public static Dictionary<Client, List<Account>> EditAccount(Client client)
+        {
+            if (Data.ContainsKey(client))
+            {
+                // Получаем существующий список аккаунтов клиента
+                List<Account> accountList = Data[client];
 
+                int id = accountList[0].AccountId;
+                if (id != 0)
+                {
+                    Console.WriteLine(id);
+                    Console.WriteLine(accountList[0].Amount);
+                    accountList[0].Amount = 7000;
+                    Console.WriteLine(id);
+                    Console.WriteLine(accountList[0].Amount);
 
-
-
+                    return Data;
+                }
+                else
+                {
+                    Console.WriteLine("Аккаунт не найден");
+                    return null;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Данного клиента нет");
+                return null;
+            }
+        }
 
 
 
