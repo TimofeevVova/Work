@@ -270,18 +270,9 @@ namespace Services
                 Currency = GenerateCurrency(),
                 Amount = random.Next(0, 99999),
             };
+
             return account;
-        }
 
-        public static Currency GenerateCurrency()
-        {
-            Currency currency = new Currency()
-            {
-                Name = "USD",
-                ExchangeRate = 16.3,
-            };
-
-            return currency;
         }
 
     }
