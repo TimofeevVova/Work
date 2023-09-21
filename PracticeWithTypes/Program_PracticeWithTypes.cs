@@ -77,6 +77,16 @@ namespace PracticeWithTypes
             //показать данные всех аккаунтов6 клиента
             TestDataGenerator.ViewDataClientAccounts(Data, Petya);
 
+            // редактирование первого аккаунта клиента
+            List<Account> accounts = Data[Petya];
+            Dictionary<Client, List<Account>> DataEdit = new Dictionary<Client, List<Account>>();
+            DataEdit = ClientService.EditAccount(Petya);
+
+            Console.WriteLine("\n");
+
+            //показать данные всех аккаунтов6 клиента
+            TestDataGenerator.ViewDataClientAccounts(Data, Petya);
+
             Console.ReadKey();
         }
     }
