@@ -246,14 +246,14 @@ namespace Services
             foreach (Client client in clients)
             {
                 List<Account> accounts = new List<Account>();
-                accounts.Add(GenerateNewAccount());
+                accounts.Add(GenerateNewAccount(true));
                 accounts.Add(GenerateNewAccount());
                 dictionary[client] = accounts;
 
                 Console.WriteLine($"Клиент {client.ClientId} имеет {accounts.Count} аккаунты:");
                 foreach (Account account in accounts)
                 {
-                    Console.WriteLine($" Id аккаунта: {account.AccountId}. Баланс: {account.Amount}");
+                    Console.WriteLine($" Id аккаунта: {account.AccountId}. Баланс: {account.Amount} Оснолвной: {account.IsDefault}");
                 }
             }
 
@@ -269,7 +269,7 @@ namespace Services
                 IsDefault = isDefault,
                 AccountId = random.Next(100, 9999),
                 Currency = GenerateCurrency(),
-                Amount = random.Next(0, 99999),
+                Amount = 0, // random.Next(0, 99999)
             };
 
             return account;
@@ -285,5 +285,23 @@ namespace Services
 
             return currency;
         }
+
+        public static void ViewDataClientAccounts(Dictionary<Client, List<Account>> Data, Client account)
+        {
+            if (Data.TryGetValue(account, out List<Account> clientAccounts))
+            {
+                Console.WriteLine($"Аккаунты клиента {account.FirstName}:");
+                foreach (Account clientAccount in clientAccounts)
+                {
+                    Console.WriteLine($"Id аккаунта: {clientAccount.AccountId}. Баланс: {clientAccount.Amount} Основной: {clientAccount.IsDefault}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Клиент с ID {account.ClientId} не найден в базе данных.");
+            }
+        }
+
+
     }
 }

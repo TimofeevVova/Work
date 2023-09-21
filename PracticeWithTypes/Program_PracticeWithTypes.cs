@@ -65,9 +65,17 @@ namespace PracticeWithTypes
             // запрос на поиск аккауна по клиенту
             var findAccountFromClient = EquivalenceTests.GetHashCodeNecessityPositivTest(count);
 
+            // создание нового клиента
+            DateTime dateTime = new DateTime(2023, 9, 18);
+            Client Petya = ClientService.AddNewClient("Петя", "Быстров", dateTime, "Тирасполь", "554657656", "Petya2245@mail.ru", "779556677"); 
+            Dictionary<Client, List<Account>> Data = new Dictionary<Client, List<Account>>();
+            Data = ClientService.CreateAdditionalAccountFromClient(Petya);
 
+            // добавление ещё одного аккаунта клиенту
+            ClientService.CreateAdditionalAccountFromClient(Petya);
 
-
+            //показать данные всех аккаунтов6 клиента
+            TestDataGenerator.ViewDataClientAccounts(Data, Petya);
 
             Console.ReadKey();
         }
