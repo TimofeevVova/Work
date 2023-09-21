@@ -16,7 +16,7 @@ namespace Services
 
 
         // метод добавления новых клиентов (в методе предусмотреть валидацию);
-        public static Dictionary<Client, List<Account>> AddNewClient(string FirstName, string LastName, DateTime DateOfBirth, string Addres, string passportData="", string Email = "", string PhoneNumber = "")
+        public static Client AddNewClient(string FirstName, string LastName, DateTime DateOfBirth, string Addres, string passportData="", string Email = "", string PhoneNumber = "")
         {
             DateTime today = DateTime.Today;
             DateTime MinAge = today.AddYears(-18);
@@ -35,7 +35,11 @@ namespace Services
                     newClient.PhoneNumber = PhoneNumber;
                     // при добавлении нового клиента создаем ему дефолтный лицевой счет;
                     CreateNewAccountFromClient(newClient);
-                    return Data;
+
+                    Console.WriteLine("\n");
+                    Console.WriteLine($"Имя- {newClient.FirstName} Город- {newClient.Address} Телефон- {newClient.PhoneNumber} ");
+
+                    return newClient;
                 }                 
                 else
                 {
@@ -74,26 +78,39 @@ namespace Services
         }
 
         // метод добавления дополнительного лицевого счета ранее зарегистрированному клиенту (соответствующая валидация);
-        public static void CreateAdditionalAccountFromClient(Client client)
-        {            
+        public static Dictionary<Client, List<Account>> CreateAdditionalAccountFromClient(Client client)
+        {
             if (Data.ContainsKey(client))
             {
                 // создание нового счета
                 bool isDefault = false;
-                Account account = TestDataGenerator.GenerateNewAccount(isDefault);
-                List<Account> accountList = new List<Account>() { account };
+                Account additionalAccount = TestDataGenerator.GenerateNewAccount(isDefault);
+
+                // Получаем существующий список аккаунтов клиента
+                List<Account> accountList = Data[client];
+
+                // Добавляем новый аккаунт к списку
+                accountList.Add(additionalAccount);
+
+                // Обновляем значение в словаре
                 Data[client] = accountList;
+
+                return Data;
             }
+            return null;
         }
 
 
+        // метод редактирования ранее добавленного лицевого счета (соответствующая валидация);
 
 
 
 
 
 
-        //● метод редактирования ранее добавленного лицевого счета (соответствующая валидация);
+
+
+
 
 
         //● реализуем тесты для проверки функционала сервиса “ClientService”;
