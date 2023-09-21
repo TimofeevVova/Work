@@ -9,12 +9,12 @@ using Services.Exceptions;
 
 namespace Services
 {
-    //В рамках сервиса “ClientService” реализовать методы:
-    //временно в качестве хранилища используем приватный словарь типа Dictionary<Client>,<List<Account>>;
     public class ClientService
     {
-        // создадим приватный словарь
+        //временно в качестве хранилища используем приватный словарь типа Dictionary<Client>,<List<Account>>;
         private static Dictionary<Client, List<Account>> Data = new Dictionary<Client, List<Account>>();
+
+
         // метод добавления новых клиентов (в методе предусмотреть валидацию);
         public static Dictionary<Client, List<Account>> AddNewClient(string FirstName, string LastName, DateTime DateOfBirth, string Addres, string passportData="", string Email = "", string PhoneNumber = "")
         {
@@ -34,7 +34,8 @@ namespace Services
                     newClient.Email = Email;
                     newClient.PhoneNumber = PhoneNumber;
                     // при добавлении нового клиента создаем ему дефолтный лицевой счет;
-                    Data = CreateNewAccountFromClient(newClient);
+                    CreateNewAccountFromClient(newClient);
+                    return Data;
                 }                 
                 else
                 {
@@ -46,30 +47,43 @@ namespace Services
             {
                 // выбрасываем исключение если клиент моложе 18 лет
                 throw new ExceptionAge();
-            }
-
-            return Data;
+            }            
         }
 
         // при добавлении нового клиента создаем ему дефолтный лицевой счет;
-        public static Dictionary<Client, List<Account>> CreateNewAccountFromClient(Client client)
-        {
-            Dictionary<Client, List<Account>> newData = new Dictionary<Client, List<Account>>();
+        public static void CreateNewAccountFromClient(Client client)
+        {            
             Random random = new Random();
 
             // создание нового счета
-            Account account = new Account();
-            {
-                account.AccountId = random.Next(100, 9999);
-                account.Currency = TestDataGenerator.GenerateCurrency();
-                account.Amount = 0;
-            }
-
+            bool isDefault = true;
+            Account account = TestDataGenerator.GenerateNewAccount(isDefault);
+            
             // присвоение счета к клиенту
             List<Account> accountList = new List<Account>() { account };
-            newData[account] = accountList;
+            if (Data.ContainsKey(account))
+            {
+                // если ключ уже есть, обновляем значение
+                Data[client] = accountList;
+            }
+            else
+            {
+                // если ключа нет, добавляем новую пару ключ-значение
+                Data.Add(client, accountList);
+            }
+        }
 
-            return newData;
+        // метод добавления дополнительного лицевого счета ранее зарегистрированному клиенту (соответствующая валидация);
+        public static void CreateAdditionalAccountFromClient(Client client)
+        {            
+            if (Data.ContainsKey(client))
+            {
+                // создание нового счета
+                bool isDefault = false;
+                Account account = TestDataGenerator.GenerateNewAccount(isDefault);
+                List<Account> accountList = new List<Account>() { account };
+                Data[client] = accountList;
+            }
         }
 
 
@@ -77,14 +91,6 @@ namespace Services
 
 
 
-
-
-
-
-
-
-
-        //● метод добавления дополнительного лицевого счета ранее зарегистрированному клиенту (соответствующая валидация);
 
 
         //● метод редактирования ранее добавленного лицевого счета (соответствующая валидация);
