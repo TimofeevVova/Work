@@ -35,7 +35,7 @@ namespace ServiceTests
                 {
                     newClient.FirstName = client.FirstName;
                     newClient.LastName = client.LastName;
-                    newClient.Age = client.Age;
+                    newClient.DateOfBirth = client.DateOfBirth;
                     newClient.Address = client.Address;
                     newClient.ClientId = client.ClientId;
                     newClient.Email = client.Email;

@@ -32,7 +32,7 @@ namespace Services
             {
                 FirstName = client.FirstName,
                 LastName = client.LastName,
-                Age = client.Age,
+                DateOfBirth = client.DateOfBirth,
                 Address = client.Address,
                 EmployeeId = client.ClientId, 
                 Department = "Отдел обучения",
