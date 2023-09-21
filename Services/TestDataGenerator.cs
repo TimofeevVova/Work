@@ -274,6 +274,16 @@ namespace Services
             return account;
 
         }
+        public static Currency GenerateCurrency()
+        {
+            Currency currency = new Currency()
+            {
+                Name = "USD",
+                ExchangeRate = 16.3,
+            };
+
+            return currency;
+        }
 
     }
 }
