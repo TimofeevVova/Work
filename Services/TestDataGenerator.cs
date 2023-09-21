@@ -261,11 +261,12 @@ namespace Services
         }
 
         // генерация нового аккаунта
-        public static Account GenerateNewAccount()
-        {            
+        public static Account GenerateNewAccount(bool isDefault = false)
+        {
             // создаем сам аккаунт
             Account account = new Account()
             {
+                IsDefault = isDefault,
                 AccountId = random.Next(100, 9999),
                 Currency = GenerateCurrency(),
                 Amount = random.Next(0, 99999),
