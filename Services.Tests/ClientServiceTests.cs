@@ -2,6 +2,7 @@ global using NUnit.Framework;
 using Models;
 using Services.Exceptions;
 using Services;
+using Services.Storage;
 
 [TestFixture]
 public class ClientServiceTests
@@ -59,5 +60,50 @@ public class ClientServiceTests
 
         Assert.IsNotNull(Data);
         Assert.IsEmpty(Data);
+    }
+
+
+    private ClientStorage storage;
+    private ClientService service;
+
+    [SetUp]
+    public void Setup()
+    {
+        // Инициализируем ClientStorage и передаем его в ClientService
+        storage = new ClientStorage();
+        service = new ClientService(storage);
+    }
+
+    [Test]
+    public void GetYoungestClient_NoClients_ReturnsNull()
+    {
+        // Arrange: Нет клиентов в хранилище
+        // Act: Вызываем метод GetYoungestClient()
+        Client youngestClient = service.GetYoungestClient();
+
+        // Assert: Ожидаем, что результат будет равен null
+        Assert.IsNull(youngestClient);
+    }
+
+    [Test]
+    public void GetOldestClient_NoClients_ReturnsNull()
+    {
+        // Arrange: Нет клиентов в хранилище
+        // Act: Вызываем метод GetOldestClient()
+        Client oldestClient = service.GetOldestClient();
+
+        // Assert: Ожидаем, что результат будет равен null
+        Assert.IsNull(oldestClient);
+    }
+
+    [Test]
+    public void GetAverageAge_NoClients_ReturnsZero()
+    {
+        // Arrange: Нет клиентов в хранилище
+        // Act: Вызываем метод GetAverageAge()
+        double averageAge = service.GetAverageAge();
+
+        // Assert: Ожидаем, что результат будет равен 0
+        Assert.AreEqual(0, averageAge);
     }
 }

@@ -8,6 +8,7 @@ using Models;
 using Services;
 using ServiceTests;
 using System.Diagnostics;
+using Services.Storage;
 
 namespace PracticeWithTypes
 {
@@ -15,7 +16,7 @@ namespace PracticeWithTypes
     {
         static void Main(string[] args)
         {
-
+            /*
             // Создание и отобравжение классов и структуры
             BasicMethods.FillingAndDisplaying();
             // Изменение данных
@@ -54,19 +55,19 @@ namespace PracticeWithTypes
 
             //сравнение времени поиска последнего элемента списка
             TestDataGenerator.TwoSearchTypes(DictionaryFromList);
-            /*
+            
             //генерация коллекции клиент-банковский счет
             var DictionatyClientAccount = TestDataGenerator.CreateDictionaryClientAccount(GenerationClients);
             
             //генерация коллекции клиент- несколько банковских счетов
             var DictionatyClientAccountList = TestDataGenerator.CreateDictionaryClientAccountList(GenerationClients);
-            */
+            
             
             // запрос на поиск аккауна по клиенту
             var findAccountFromClient = EquivalenceTests.GetHashCodeNecessityPositivTest(count);
 
             // создание нового клиента
-            DateTime dateTime = new DateTime(2000, 9, 18);
+            DateTime dateTime = new DateTime(1990, 1, 1);
             Dictionary<Client, List<Account>> Data =  ClientService.AddNewClient("Петя", "Быстров", dateTime, "Тирасполь", "345345345345", "Petya2245@mail.ru", "779556677");
 
             Client SomeClient = new Client();
@@ -97,7 +98,47 @@ namespace PracticeWithTypes
 
             //показать данные всех аккаунтов6 клиента
             TestDataGenerator.ViewDataClientAccounts(Data, SomeClient);
-            
+
+            */
+
+
+
+
+            DateTime dateTime = new DateTime(1990, 1, 1);
+
+            ClientStorage storage = new ClientStorage();
+            dateTime = new DateTime(1990, 9, 18);
+            storage.AddNewClient("Настя", "Воробъева", dateTime, "Тирасполь", "Nastya555@mail.ru", "779556677", "88005553535");
+
+            dateTime = new DateTime(1985, 9, 18);
+            storage.AddNewClient("Вика", "Воробъева", dateTime, "Тирасполь", "Nastya555@mail.ru", "779556677", "88005553535");
+
+            dateTime = new DateTime(1986, 9, 18);
+            storage.AddNewClient("Саша", "Воробъев", dateTime, "Тирасполь", "Nastya555@mail.ru", "779556677", "88005553535");
+
+            dateTime = new DateTime(2004, 9, 18);
+            storage.AddNewClient("Миша", "Воробъев", dateTime, "Тирасполь", "Nastya555@mail.ru", "779556677", "88005553535");
+
+            dateTime = new DateTime(2005, 9, 18);
+            storage.AddNewClient("Лера", "Воробъева", dateTime, "Тирасполь", "Nastya555@mail.ru", "779556677", "88005553535");
+
+            ClientService clientService = new ClientService(storage);
+            Client youngClient = clientService.GetYoungestClient();
+
+            Console.WriteLine($"самый молодой - {youngClient.FirstName}");
+            Console.WriteLine($"дата рождения - {youngClient.DateOfBirth}");
+
+
+            Client oldClient = clientService.GetOldestClient();
+
+            Console.WriteLine($"самый старый - {oldClient.FirstName}");
+            Console.WriteLine($"дата рождения - {oldClient.DateOfBirth}");
+
+
+            double years = clientService.GetAverageAge();
+            Console.WriteLine($"средний возраст - {Convert.ToInt32(years)}");
+
+
             Console.ReadKey();
         }
     }
