@@ -12,6 +12,7 @@ namespace Models
         public int AccountId { get; set; }
         public Currency Currency { get; set; }
         public int Amount { get; set; }
+        public int[] OwnerId { get; set; }
 
     }
 }

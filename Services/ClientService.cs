@@ -8,13 +8,14 @@ using Services;
 using Services.Exceptions;
 using NUnit.Framework;
 using System.Net;
+using Services.Storage;
 
 namespace Services
 {
     public class ClientService
     {
         //временно в качестве хранилища используем приватный словарь типа Dictionary<Client>,<List<Account>>;
-        private static Dictionary<Client, List<Account>> Data = new Dictionary<Client, List<Account>>();
+         private static Dictionary<Client, List<Account>> Data = new Dictionary<Client, List<Account>>();
 
 
         // метод добавления новых клиентов (в методе предусмотреть валидацию);
@@ -186,23 +187,32 @@ namespace Services
             }
         }
 
+        private readonly ClientStorage storage;
+        public ClientService(ClientStorage storage)
+        {
+            this.storage = storage;
+        }
 
+        // найдите самого молодого клиента;
+        public Client GetYoungestClient()
+        {
+            return storage.clients.OrderBy(client => client.DateOfBirth).LastOrDefault();
+        }
 
+        // найдите самого старого клиента;
+        public Client GetOldestClient()
+        {
+            return storage.clients.OrderBy(client => client.DateOfBirth).FirstOrDefault();
+        }
 
-
-
-
-        //● реализуем тесты для проверки функционала сервиса “ClientService”;
-
-
-        //● самостоятельно реализовать аналогичный подход для работы с сотрудниками банка.
+        // вычислите средний возраст клиентов;
+        public double GetAverageAge()
+        {
+            if (storage.clients.Any())
+            {
+                return storage.clients.Average(client => (DateTime.Today - client.DateOfBirth).TotalDays / 365.0);
+            }
+            return 0;
+        }
     }
-
-
-
-    
-
-
-
-
 }
