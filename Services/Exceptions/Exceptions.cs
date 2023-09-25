@@ -10,18 +10,15 @@ namespace Services.Exceptions
     //(в проект Services добавить папку Exceptions, в которую добавить собственный класс исключения);
     public class ExceptionAge : Exception
     {
-        public void ExceptionAgeMessage()
+        public ExceptionAge() : base("Человеку меньше 18 лет")
         {
-            Console.WriteLine("Человеку меньше 18 лет");
         }
-
     }
-    public class ExceptinoNoPassportData : Exception
-    {
 
-        public static void ExceptinoNoPassportDataMessage()
+    public class ExceptionNoPassportData : Exception
+    {
+        public ExceptionNoPassportData() : base("Пасспортные данные не указаны")
         {
-            Console.WriteLine("Пасспортные данные не указаны");
         }
     }
 }

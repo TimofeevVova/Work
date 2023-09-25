@@ -66,27 +66,38 @@ namespace PracticeWithTypes
             var findAccountFromClient = EquivalenceTests.GetHashCodeNecessityPositivTest(count);
 
             // создание нового клиента
-            DateTime dateTime = new DateTime(2023, 9, 18);
-            Client Petya = ClientService.AddNewClient("Петя", "Быстров", dateTime, "Тирасполь", "554657656", "Petya2245@mail.ru", "779556677"); 
-            Dictionary<Client, List<Account>> Data = new Dictionary<Client, List<Account>>();
-            Data = ClientService.CreateAdditionalAccountFromClient(Petya);
+            DateTime dateTime = new DateTime(2000, 9, 18);
+            Dictionary<Client, List<Account>> Data =  ClientService.AddNewClient("Петя", "Быстров", dateTime, "Тирасполь", "345345345345", "Petya2245@mail.ru", "779556677");
+
+            Client SomeClient = new Client();
+            if (Data.Keys.Any())
+            {
+                // получаем список всех клиентов и берем последний из них
+                List<Client> clientList = Data.Keys.ToList();
+                SomeClient = clientList.Last();
+
+                // редактирование первого аккаунта клиента
+                List<Account> accounts = Data[SomeClient];
+                Dictionary<Client, List<Account>> DataEdit = new Dictionary<Client, List<Account>>();
+                DataEdit = ClientService.EditAccount(SomeClient);
+            }
+
+
+            //Data = ClientService.CreateAdditionalAccountFromClient(Petya);
 
             // добавление ещё одного аккаунта клиенту
-            ClientService.CreateAdditionalAccountFromClient(Petya);
+            //ClientService.CreateAdditionalAccountFromClient(Petya);
 
             //показать данные всех аккаунтов6 клиента
-            TestDataGenerator.ViewDataClientAccounts(Data, Petya);
+            //TestDataGenerator.ViewDataClientAccounts(Data, Petya);
 
-            // редактирование первого аккаунта клиента
-            List<Account> accounts = Data[Petya];
-            Dictionary<Client, List<Account>> DataEdit = new Dictionary<Client, List<Account>>();
-            DataEdit = ClientService.EditAccount(Petya);
+            
 
             Console.WriteLine("\n");
 
             //показать данные всех аккаунтов6 клиента
-            TestDataGenerator.ViewDataClientAccounts(Data, Petya);
-
+            TestDataGenerator.ViewDataClientAccounts(Data, SomeClient);
+            
             Console.ReadKey();
         }
     }

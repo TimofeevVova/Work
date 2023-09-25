@@ -49,7 +49,7 @@ namespace ServiceTests
             // перебор и сохранение всех аккаунтов клиента
             if (DictionatyClientAccountList.TryGetValue(newClient, out List<Account> clientAccounts))
             {
-                Console.WriteLine($"Найдены аккаунты для клиента {newClient.ClientId}:");
+                Console.WriteLine($"Найдены аккаунты для клиента {newClient.FirstName} {newClient.LastName}:");
                 foreach (Account account2 in  clientAccounts)
                 {
                     Console.WriteLine($"Id аккаунта - {account2.AccountId}");
