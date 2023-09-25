@@ -250,7 +250,7 @@ namespace Services
                 accounts.Add(GenerateNewAccount());
                 dictionary[client] = accounts;
 
-                Console.WriteLine($"Клиент {client.ClientId} имеет {accounts.Count} аккаунты:");
+                Console.WriteLine($"Клиент {client.FirstName} {client.LastName} имеет {accounts.Count} аккаунты:");
                 foreach (Account account in accounts)
                 {
                     Console.WriteLine($" Id аккаунта: {account.AccountId}. Баланс: {account.Amount} Оснолвной: {account.IsDefault}");
@@ -286,22 +286,24 @@ namespace Services
             return currency;
         }
 
-        public static void ViewDataClientAccounts(Dictionary<Client, List<Account>> Data, Client account)
+        public static void ViewDataClientAccounts(Dictionary<Client, List<Account>> Data, Client client)
         {
-            if (Data.TryGetValue(account, out List<Account> clientAccounts))
+            if (ClientService.DoesClientHaveAccounts(Data, client))
             {
-                Console.WriteLine($"Аккаунты клиента {account.FirstName}:");
-                foreach (Account clientAccount in clientAccounts)
+                // получаем существующий список аккаунтов клиента
+                List<Account> accountList = Data[client];
+
+                Console.WriteLine($"Аккаунты клиента {client.FirstName}:");
+                foreach (Account account in accountList)
                 {
-                    Console.WriteLine($"Id аккаунта: {clientAccount.AccountId}. Баланс: {clientAccount.Amount} Основной: {clientAccount.IsDefault}");
+                    Console.WriteLine("Старт");
+                    Console.WriteLine($"Id аккаунта: {account.AccountId}. Баланс: {account.Amount} Основной: {account.IsDefault}");
                 }
             }
-            else
+            else 
             {
-                Console.WriteLine($"Клиент с ID {account.ClientId} не найден в базе данных.");
-            }
+                Console.WriteLine("Данных нет");
+            }            
         }
-
-
     }
 }
