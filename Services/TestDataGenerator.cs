@@ -246,14 +246,14 @@ namespace Services
             foreach (Client client in clients)
             {
                 List<Account> accounts = new List<Account>();
-                accounts.Add(GenerateNewAccount(true));
+                accounts.Add(GenerateNewAccount());
                 accounts.Add(GenerateNewAccount());
                 dictionary[client] = accounts;
 
                 Console.WriteLine($"Клиент {client.FirstName} {client.LastName} имеет {accounts.Count} аккаунты:");
                 foreach (Account account in accounts)
                 {
-                    Console.WriteLine($" Id аккаунта: {account.AccountId}. Баланс: {account.Amount} Оснолвной: {account.IsDefault}");
+                    Console.WriteLine($" Id аккаунта: {account.AccountId}. Баланс: {account.Amount}");
                 }
             }
 
@@ -261,12 +261,12 @@ namespace Services
         }
 
         // генерация нового аккаунта
-        public static Account GenerateNewAccount(bool isDefault = false)
+        public static Account GenerateNewAccount()
         {
             // создаем сам аккаунт
             Account account = new Account()
             {
-                IsDefault = isDefault,
+
                 AccountId = random.Next(100, 9999),
                 Currency = GenerateCurrency(),
                 Amount = 0, // random.Next(0, 99999)
@@ -297,7 +297,7 @@ namespace Services
                 foreach (Account account in accountList)
                 {
                     Console.WriteLine("Старт");
-                    Console.WriteLine($"Id аккаунта: {account.AccountId}. Баланс: {account.Amount} Основной: {account.IsDefault}");
+                    Console.WriteLine($"Id аккаунта: {account.AccountId}. Баланс: {account.Amount}");
                 }
             }
             else 

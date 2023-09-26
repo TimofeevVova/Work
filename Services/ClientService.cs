@@ -12,123 +12,38 @@ using Services.Storage;
 
 namespace Services
 {
-    public class ClientService
+    public class ClientService // работа со счетами клиентов
     {
-        //временно в качестве хранилища используем приватный словарь типа Dictionary<Client>,<List<Account>>;
-         private static Dictionary<Client, List<Account>> Data = new Dictionary<Client, List<Account>>();
-
-
-        // метод добавления новых клиентов (в методе предусмотреть валидацию);
-        public static Dictionary<Client, List<Account>> AddNewClient(string FirstName, string LastName, DateTime DateOfBirth, string Addres, string passportData = "", string Email = "", string PhoneNumber = "")
+        private readonly ClientStorage clientStorage;
+        public ClientService(ClientStorage clientStorage)
         {
-            try
-            {
-                DateTime today = DateTime.Today;
-                DateTime MinAge = today.AddYears(-18);
-                Client newClient = new Client();
-
-                if (MinAge > DateOfBirth)
-                {
-                    if (passportData != "")
-                    {
-                        newClient.FirstName = FirstName;
-                        newClient.LastName = LastName;
-                        newClient.DateOfBirth = DateOfBirth;
-                        newClient.Address = Addres;
-                        newClient.SetPasportData(passportData);
-                        newClient.Email = Email;
-                        newClient.PhoneNumber = PhoneNumber;
-                        // при добавлении нового клиента создаем ему дефолтный лицевой счет;
-
-                        Console.WriteLine("\n");
-
-                        CreateNewAccountFromClient(newClient);
-
-                        Console.WriteLine($"Имя- {newClient.FirstName} Город- {newClient.Address} Возраст- {newClient.DateOfBirth} MinAge-{MinAge} Телефон- {newClient.PhoneNumber} ");
-
-                        return Data;
-                    }
-                    else
-                    {
-                        // выбрасываем исключение если у клиента нет паспортных данных;
-                        throw new ExceptionNoPassportData();
-                    }
-                }
-                else
-                {
-                    // выбрасываем исключение если клиент моложе 18 лет
-                    throw new ExceptionAge();
-                }
-            }
-            catch (ExceptionAge e)
-            {
-                Console.WriteLine(e.ToString());
-                return Data;
-            }
-            catch (ExceptionNoPassportData e)
-            {
-                Console.WriteLine(e.ToString());
-                return Data;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-                return Data;
-            }
+            this.clientStorage = clientStorage;
+            Data = new Dictionary<Client, List<Account>>();
         }
+        public Dictionary<Client, List<Account>> Data { get; set; } = new Dictionary<Client, List<Account>>();
 
-        // при добавлении нового клиента создаем ему новый дефолтный лицевой счет;
-        public static void CreateNewAccountFromClient(Client client)
-        {            
-            Random random = new Random();
 
+        // добавить новый аккаунт клиенту
+        public void AddAccount(Client client)
+        {
             // создание нового счета
-            bool isDefault = true;
-            Account account = TestDataGenerator.GenerateNewAccount(isDefault);
-            
+            Account account = TestDataGenerator.GenerateNewAccount();
+
+            // установка связи аккаунта и клиента
+            // запись id клиента в аккаунт
+            account.AccountId = client.ClientId;
+            // запись id аккаунта в данные клиента
+            client.IdAccounts.Add(account.AccountId);
+
             // присвоение счета к клиенту
-            List<Account> accountList = new List<Account>() { account };
-            if (Data.ContainsKey(account))
-            {
-                // если ключ уже есть, обновляем значение
-                Data[client] = accountList;
-            }
-            else
-            {
-                // если ключа нет, добавляем новую пару ключ-значение
-                Data.Add(client, accountList);
-            }
+            Data[client].Add(account);            
             Console.WriteLine("Создан счет для клиента");
         }
 
-        // метод добавления дополнительного лицевого счета ранее зарегистрированному клиенту (соответствующая валидация);
-        public static Dictionary<Client, List<Account>> CreateAdditionalAccountFromClient(Client client)
-        {
-            if (Data.ContainsKey(client))
-            {
-                // создание нового счета
-                bool isDefault = false;
-                Account additionalAccount = TestDataGenerator.GenerateNewAccount(isDefault);
 
-                // Получаем существующий список аккаунтов клиента
-                List<Account> accountList = Data[client];
 
-                // Добавляем новый аккаунт к списку
-                accountList.Add(additionalAccount);
-
-                // Обновляем значение в словаре
-                Data[client] = accountList;
-
-                return Data;
-            }
-            else
-            {
-                return new Dictionary<Client, List<Account>>();
-            }
-        }
-
-        // метод редактирования ранее добавленного лицевого счета (соответствующая валидация);
-        public static Dictionary<Client, List<Account>> EditAccount(Client client)
+        // Обновить данные в аккаунте
+        public void UpdateAccount(Client client, int newAmount)
         {
             // проверяем наличие клиента и есть ли у него счет
             if (DoesClientHaveAccounts(Data, client))
@@ -142,28 +57,32 @@ namespace Services
                     if (id != 0)
                     {
                         Console.WriteLine($"ID - {id}, Баланс -  {accountList[0].Amount}");
-                        accountList[0].Amount = 7000;
+                        // замена счета на новый
+                        accountList[0].Amount = newAmount;
                         Console.WriteLine("Изменено на:");
                         Console.WriteLine($"ID - {id}, Баланс -  {accountList[0].Amount}");
-
-                        return Data;
                     }
                     else
                     {
                         Console.WriteLine("Аккаунт не найден");
-                        return Data;
                     }
                 }
                 else
                 {
                     Console.WriteLine("Данного клиента нет");
-                    return Data;
                 }
             }
             else
             {
-                return Data;
+                Console.WriteLine("Двнного клиента или счета нет");
             }            
+        }
+
+
+        // Удалить аккаунт
+        public void DeleteAccount(Client client) 
+        {
+            Data.Remove(client);
         }
 
         // проверка на наличие аккаунта у клиента
@@ -185,34 +104,6 @@ namespace Services
                 Console.WriteLine("клиент не найден, поэтому нет и аккаунтов");
                 return false;
             }
-        }
-
-        private readonly ClientStorage storage;
-        public ClientService(ClientStorage storage)
-        {
-            this.storage = storage;
-        }
-
-        // найдите самого молодого клиента;
-        public Client GetYoungestClient()
-        {
-            return storage.clients.OrderBy(client => client.DateOfBirth).LastOrDefault();
-        }
-
-        // найдите самого старого клиента;
-        public Client GetOldestClient()
-        {
-            return storage.clients.OrderBy(client => client.DateOfBirth).FirstOrDefault();
-        }
-
-        // вычислите средний возраст клиентов;
-        public double GetAverageAge()
-        {
-            if (storage.clients.Any())
-            {
-                return storage.clients.Average(client => (DateTime.Today - client.DateOfBirth).TotalDays / 365.0);
-            }
-            return 0;
-        }
+        }        
     }
 }

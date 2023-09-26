@@ -3,6 +3,7 @@ using Models;
 using Services.Exceptions;
 using Services;
 using Services.Storage;
+using Moq;
 
 [TestFixture]
 public class ClientServiceTests
@@ -63,15 +64,15 @@ public class ClientServiceTests
     }
 
 
-    private ClientStorage storage;
+    private Mock<IClientStorage> storageMock;
     private ClientService service;
 
     [SetUp]
     public void Setup()
     {
-        // Инициализируем ClientStorage и передаем его в ClientService
-        storage = new ClientStorage();
-        service = new ClientService(storage);
+        // Создаем макет (mock) объекта IClientStorage
+        storageMock = new Mock<IClientStorage>();
+        service = new ClientService(storageMock.Object);
     }
 
     [Test]
