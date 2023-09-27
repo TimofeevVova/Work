@@ -80,9 +80,9 @@ namespace Services
 
 
         // Удалить аккаунт
-        public void DeleteAccount(Client client) 
+        public void DeleteAccount(Client client, Account account) 
         {
-            Data.Remove(client);
+            Data[client].Remove(account);
         }
 
         // проверка на наличие аккаунта у клиента
