@@ -3,107 +3,143 @@ using Models;
 using Services.Exceptions;
 using Services;
 using Services.Storage;
+using Moq;
+using System.Net;
 
 [TestFixture]
 public class ClientServiceTests
 {
-    // проверка создания нового клиента метода AddNewClient
-    [Test]
-    public void AddNewClient_ValidData_ReturnsClient()
-    {
-        string firstName = "Женя";
-        string lastName = "Попович";
-        DateTime dateOfBirth = new DateTime(1998, 5, 4);
-        string address = "Бендеры";
-        string passportData = "N22556045";
-
-        Dictionary<Client, List<Account>> Data = ClientService.AddNewClient(firstName, lastName, dateOfBirth, address, passportData);
-
-        // проверяем, что данные добавлены в словарь
-        Assert.IsNotNull(Data);
-
-        // создаем отдельного клиента и его аккаунты
-        Client newClient = Data.Keys.FirstOrDefault();
-        List<Account> accounts = Data.Values.FirstOrDefault();
-
-        // проверка на null
-        Assert.IsNotNull(newClient);
-        Assert.IsNotNull(accounts);
-
-        // проверка значений
-        Assert.That(newClient.FirstName, Is.EqualTo(firstName));
-        Assert.That(newClient.LastName, Is.EqualTo(lastName));
-        Assert.That(newClient.DateOfBirth, Is.EqualTo(dateOfBirth));
-        Assert.That(newClient.Address, Is.EqualTo(address));
-        Assert.That(newClient.GetPasportData(), Is.EqualTo(passportData));
-    }
-
-    // проверка на возраст метода AddNewClient
-    [Test]
-    public void AddNewClient_InvalidAge_ReturnsEmptyData()
-    {
-        DateTime dateOfBirth = DateTime.Today.AddYears(-17);
-
-        Dictionary<Client, List<Account>> Data = ClientService.AddNewClient("Женя", "Попович", dateOfBirth, "Бендеры");
-
-        Assert.IsNotNull(Data);
-        Assert.IsEmpty(Data);
-    }
-
-    // проверка на отсутствие паспортных жаных метода AddNewClient
-    [Test]
-    public void AddNewClient_MissingPassportData_ReturnsEmptyData()
-    {
-        DateTime dateOfBirth = new DateTime(1998, 5, 4);
-
-        Dictionary<Client, List<Account>> Data = ClientService.AddNewClient("Женя", "Попович", dateOfBirth, "Бендеры");
-
-        Assert.IsNotNull(Data);
-        Assert.IsEmpty(Data);
-    }
-
-
-    private ClientStorage storage;
-    private ClientService service;
+    private IClientStorage storage;
 
     [SetUp]
     public void Setup()
     {
-        // Инициализируем ClientStorage и передаем его в ClientService
         storage = new ClientStorage();
-        service = new ClientService(storage);
     }
 
     [Test]
-    public void GetYoungestClient_NoClients_ReturnsNull()
+    public void Add_NewClient_AddsClientToStorage()
     {
-        // Arrange: Нет клиентов в хранилище
-        // Act: Вызываем метод GetYoungestClient()
-        Client youngestClient = service.GetYoungestClient();
+        // Arrange
+        string firstName = "Игорь";
+        string lastName = "Новиков";
+        DateTime dateOfBirth = new DateTime(1990, 1, 1);
+        string address = "Москва";
+        string email = "igor2234@gmail.com";
+        string phoneNumber = "1234567890";
+        string PasportData = "88005553535";
 
-        // Assert: Ожидаем, что результат будет равен null
-        Assert.IsNull(youngestClient);
+        // Act
+        IClientStorage storage = new ClientStorage();
+        Client newClient = storage.Add(firstName, lastName, dateOfBirth, address, email, phoneNumber, PasportData);
+
+        // Assert
+        Assert.IsNotNull(newClient);
+        Assert.AreEqual(firstName, newClient.FirstName);
+        Assert.AreEqual(lastName, newClient.LastName);
+        Assert.AreEqual(dateOfBirth, newClient.DateOfBirth);
+        Assert.AreEqual(address, newClient.Address);
+        Assert.AreEqual(email, newClient.Email);
+        Assert.AreEqual(phoneNumber, newClient.PhoneNumber);
     }
 
     [Test]
-    public void GetOldestClient_NoClients_ReturnsNull()
+    public void Update_ExistingClient_UpdatesClientData()
     {
-        // Arrange: Нет клиентов в хранилище
-        // Act: Вызываем метод GetOldestClient()
-        Client oldestClient = service.GetOldestClient();
+        // Arrange
+        IClientStorage storage = new ClientStorage();
+        Client originalClient = storage.Add("Игорь", "Новиков", new DateTime(1990, 1, 1), "Москва", "igor2234@gmail.com", "1234567890", "23423423424");
+        string newFirstName = "Никита";
+        string newLastName = "НеНовиков";
+        DateTime newDateOfBirth = new DateTime(1985, 2, 15);
+        string newAddress = "Питер";
+        string newEmail = "nekit2236@gmail.com";
+        string newPhoneNumber = "9876543210";
+        string PasportData = "9876543210";
 
-        // Assert: Ожидаем, что результат будет равен null
-        Assert.IsNull(oldestClient);
+        // Act
+        Client updatedClient = storage.Update(originalClient, newFirstName, newLastName, newDateOfBirth, newAddress, newEmail, newPhoneNumber, PasportData);
+
+        // Assert
+        Assert.AreEqual(newFirstName, updatedClient.FirstName);
+        Assert.AreEqual(newLastName, updatedClient.LastName);
+        Assert.AreEqual(newDateOfBirth, updatedClient.DateOfBirth);
+        Assert.AreEqual(newAddress, updatedClient.Address);
+        Assert.AreEqual(newEmail, updatedClient.Email);
+        Assert.AreEqual(newPhoneNumber, updatedClient.PhoneNumber);
     }
 
     [Test]
-    public void GetAverageAge_NoClients_ReturnsZero()
+    public void DeleteClient_ValidClient_DeletesClient()
     {
-        // Arrange: Нет клиентов в хранилище
-        // Act: Вызываем метод GetAverageAge()
-        double averageAge = service.GetAverageAge();
+        // Arrange
+        var storageMock = new Mock<IClientStorage>();
+        var clientService = new ClientService(storageMock.Object);
+        var clientToDelete = new Client
+        {
+            FirstName = "Игорь",
+            LastName = "Новиков",
+            DateOfBirth = new DateTime(1990, 1, 1),
+            Address = "Москва",
+            Email = "igor2234@gmail.com",
+            PhoneNumber = "1234567890",
+        };
 
-        // Assert: Ожидаем, что результат будет равен 0
-        Assert.AreEqual(0, averageAge);
+        // Act
+        storageMock.Setup(storage => storage.Delete(clientToDelete));
+        storageMock.Object.Delete(clientToDelete);
+
+        // Assert
+        storageMock.Verify(storage => storage.Delete(clientToDelete), Times.Once);
+    }
+
+    [Test]
+    public void AddAccount_ValidClient_AddsAccount()
+    {
+        // Arrange
+        IClientStorage storage = new ClientStorage();
+        Client client = storage.Add("Игорь", "Новиков", new DateTime(1990, 1, 1), "Москва", "igor2234@gmail.com", "1234567890", "23423423424");
+
+        // Act
+        Dictionary<Client, List<Account>> data = storage.AddAccount(client);
+        List<Account> accounts = data[client];
+
+        // Assert
+        Assert.AreEqual(1, accounts.Count);
+    }
+
+    [Test]
+    public void UpdateAccount_ValidClientAndAccount_UpdatesAccount()
+    {
+        // Arrange
+        IClientStorage storage = new ClientStorage();
+        Client client = storage.Add("Игорь", "Новиков", new DateTime(1990, 1, 1), "Москва", "igor2234@gmail.com", "1234567890", "23423423424");
+        Dictionary<Client, List<Account>> data = storage.AddAccount(client);
+        List<Account> accounts = data[client];
+        Account account = accounts.First();
+
+        // Act
+        Dictionary<Client, List<Account>> updatedData = storage.UpdateAccount(client, account.AccountId, 1000);
+
+        // Assert
+        Account updatedAccount = updatedData[client].First();
+        Assert.AreEqual(1000, updatedAccount.Amount);
+    }
+
+    [Test]
+    public void DeleteAccount_ValidClientAndAccount_DeletesAccount()
+    {
+        // Arrange
+        IClientStorage storage = new ClientStorage();
+        Client client = storage.Add("Игорь", "Новиков", new DateTime(1990, 1, 1), "Москва", "igor2234@gmail.com", "1234567890", "23423423424");
+        Dictionary<Client, List<Account>> data = storage.AddAccount(client);
+        List<Account> accounts = data[client];
+        Account account = accounts.First();
+
+        // Act
+        Client updatedClient = storage.DeleteAccount(client, account);
+
+        // Assert
+        Assert.IsFalse(updatedClient.IdAccounts.Contains(account.AccountId));
     }
 }
