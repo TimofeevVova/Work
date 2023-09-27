@@ -14,7 +14,12 @@ namespace Services
 {
     public class ClientService 
     {
-        
+        private readonly IClientStorage storage;
+        public ClientService(IClientStorage storage)
+        {
+            this.storage = storage;
+        }
+
         // проверка на наличие аккаунта у клиента
         public static bool DoesClientHaveAccounts(Dictionary<Client, List<Account>> Data, Client client, int idAccount)
         {
