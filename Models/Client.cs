@@ -8,6 +8,7 @@ namespace Models
 {
     public class Client : Person //Class Клиент  (Айди Маил Телефон)
     {
+        public List<int> IdAccounts { get; set; } // айди всех аккаунтов данного клиента
         public int ClientId { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }

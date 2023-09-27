@@ -245,15 +245,17 @@ namespace Services
 
             foreach (Client client in clients)
             {
-                List<Account> accounts = new List<Account>();
-                accounts.Add(GenerateNewAccount(true));
-                accounts.Add(GenerateNewAccount());
+                List<Account> accounts = new List<Account>
+                {
+                    GenerateNewAccount(),
+                    GenerateNewAccount()
+                };
                 dictionary[client] = accounts;
 
                 Console.WriteLine($"Клиент {client.FirstName} {client.LastName} имеет {accounts.Count} аккаунты:");
                 foreach (Account account in accounts)
                 {
-                    Console.WriteLine($" Id аккаунта: {account.AccountId}. Баланс: {account.Amount} Оснолвной: {account.IsDefault}");
+                    Console.WriteLine($" Id аккаунта: {account.AccountId}. Баланс: {account.Amount}");
                 }
             }
 
@@ -261,13 +263,14 @@ namespace Services
         }
 
         // генерация нового аккаунта
-        public static Account GenerateNewAccount(bool isDefault = false)
+        public static Account GenerateNewAccount()
         {
             // создаем сам аккаунт
             Account account = new Account()
             {
-                IsDefault = isDefault,
-                AccountId = random.Next(100, 9999),
+
+                //AccountId = random.Next(10, 99999),
+                AccountId = 0,
                 Currency = GenerateCurrency(),
                 Amount = 0, // random.Next(0, 99999)
             };
@@ -285,7 +288,7 @@ namespace Services
 
             return currency;
         }
-
+        /*
         public static void ViewDataClientAccounts(Dictionary<Client, List<Account>> Data, Client client)
         {
             if (ClientService.DoesClientHaveAccounts(Data, client))
@@ -297,7 +300,7 @@ namespace Services
                 foreach (Account account in accountList)
                 {
                     Console.WriteLine("Старт");
-                    Console.WriteLine($"Id аккаунта: {account.AccountId}. Баланс: {account.Amount} Основной: {account.IsDefault}");
+                    Console.WriteLine($"Id аккаунта: {account.AccountId}. Баланс: {account.Amount}");
                 }
             }
             else 
@@ -305,5 +308,6 @@ namespace Services
                 Console.WriteLine("Данных нет");
             }            
         }
+        */
     }
 }
