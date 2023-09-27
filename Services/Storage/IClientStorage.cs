@@ -8,13 +8,13 @@ using Models;
 namespace Services.Storage
 {
     public interface IClientStorage : IStorage
-    { 
+    {
         //AddAccount
-        void AddAccount(Client client);
+        Dictionary<Client, List<Account>> AddAccount(Client client);
         //UpdateAccount
-        void UpdateAccount(Client client, int newAmount);
+        Dictionary<Client, List<Account>> UpdateAccount(Client client, int idAccount, int newAmount);
         //DeleteAccount
-        void DeleteAccount(Client client, Account account);
+        Client DeleteAccount(Client client, Account account);
 
 
         //свойство Dictionary<Client, List<Account>> Data.

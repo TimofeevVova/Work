@@ -14,7 +14,7 @@ namespace Services.Storage
         Client Add(string FirstName, string LastName, DateTime DateOfBirth, string Address, string Email, string PhoneNumber, string passportData = "");
 
         //Update(Titem)
-        void Update(Client client, string FirstName, string LastName, DateTime DateOfBirth, string Address, string Email, string PhoneNumber, string passportData = "");
+        Client Update(Client client, string FirstName, string LastName, DateTime DateOfBirth, string Address, string Email, string PhoneNumber, string passportData = "");
 
         //Delete(T item)
         void Delete(Client client);

@@ -245,9 +245,11 @@ namespace Services
 
             foreach (Client client in clients)
             {
-                List<Account> accounts = new List<Account>();
-                accounts.Add(GenerateNewAccount());
-                accounts.Add(GenerateNewAccount());
+                List<Account> accounts = new List<Account>
+                {
+                    GenerateNewAccount(),
+                    GenerateNewAccount()
+                };
                 dictionary[client] = accounts;
 
                 Console.WriteLine($"Клиент {client.FirstName} {client.LastName} имеет {accounts.Count} аккаунты:");
@@ -267,7 +269,8 @@ namespace Services
             Account account = new Account()
             {
 
-                AccountId = random.Next(100, 9999),
+                //AccountId = random.Next(10, 99999),
+                AccountId = 0,
                 Currency = GenerateCurrency(),
                 Amount = 0, // random.Next(0, 99999)
             };
@@ -285,7 +288,7 @@ namespace Services
 
             return currency;
         }
-
+        /*
         public static void ViewDataClientAccounts(Dictionary<Client, List<Account>> Data, Client client)
         {
             if (ClientService.DoesClientHaveAccounts(Data, client))
@@ -305,5 +308,6 @@ namespace Services
                 Console.WriteLine("Данных нет");
             }            
         }
+        */
     }
 }
