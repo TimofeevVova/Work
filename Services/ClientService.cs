@@ -9,15 +9,19 @@ using Services.Exceptions;
 using NUnit.Framework;
 using System.Net;
 using Services.Storage;
+using HelloApp;
+using static HelloApp.ApplicationContext;
 
 namespace Services
 {
     public class ClientService 
     {
         private readonly IClientStorage storage;
+        ApplicationContext _dbContext;
         public ClientService(IClientStorage storage)
         {
             this.storage = storage;
+            _dbContext = new ApplicationContext();
         }
 
         // проверка на наличие аккаунта у клиента
@@ -33,6 +37,21 @@ namespace Services
             {                
                 return false;
             }
+        }
+
+
+        public client GetClient(int clientId)
+        {
+            return _dbContext.clientData.FirstOrDefault(c => c.Id == clientId);
+        }
+        public void AddClient(client client)
+        {
+            _dbContext.clientData.Add(client);
+            _dbContext.SaveChanges();
+        }
+        public void RemoveClient(client client)
+        {
+
         }
     }
 }
