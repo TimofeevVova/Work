@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Models;
-using Services;
-using Services.Exceptions;
-using NUnit.Framework;
-using System.Net;
 using Services.Storage;
 using HelloApp;
-using static HelloApp.ApplicationContext;
 
 namespace Services
 {
@@ -40,16 +33,16 @@ namespace Services
         }
 
 
-        public client GetClient(int clientId)
+        public Client GetClient(int clientId)
         {
             return _dbContext.clientData.FirstOrDefault(c => c.Id == clientId);
         }
-        public void AddClient(client client)
+        public void AddClient(Client client)
         {
             _dbContext.clientData.Add(client);
             _dbContext.SaveChanges();
         }
-        public void RemoveClient(client client)
+        public void RemoveClient(Client client)
         {
 
         }

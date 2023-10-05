@@ -12,7 +12,7 @@ using System.Xml.Linq;
 namespace Services
 {
     public class TestDataGenerator
-    {        
+    {
         static Random random = new Random();
         /*
         //а) генерации коллекции 1000 клиентов банка;
