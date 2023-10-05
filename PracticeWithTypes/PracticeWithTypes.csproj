@@ -158,20 +158,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Models\Models.csproj">
-      <Project>{305bb3fa-e9f4-4285-a5dc-856dba9253db}</Project>
-      <Name>Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Services\Services.csproj">
-      <Project>{29039949-5a41-48f0-9127-950fdf0779eb}</Project>
-      <Name>Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ServiceTests\ServiceTests.csproj">
-      <Project>{370ddcce-30b8-424d-9e04-6f009049bf62}</Project>
-      <Name>ServiceTests</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

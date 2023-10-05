@@ -159,13 +159,9 @@
     <Compile Include="TestDataGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Helpers\Helpers.csproj">
-      <Project>{efc93e84-3fe1-4cbe-9955-38d63b74ee2e}</Project>
+    <ProjectReference Include="..\Helper\Helpers.csproj">
+      <Project>{c4563347-18b3-455e-9584-26359fadcc68}</Project>
       <Name>Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Models\Models.csproj">
-      <Project>{305bb3fa-e9f4-4285-a5dc-856dba9253db}</Project>
-      <Name>Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
