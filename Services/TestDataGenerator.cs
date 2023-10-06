@@ -12,9 +12,9 @@ using System.Xml.Linq;
 namespace Services
 {
     public class TestDataGenerator
-    {        
+    {
         static Random random = new Random();
-        /*
+
         //а) генерации коллекции 1000 клиентов банка;
         public static List<Client> Generation1000Clients(int count)
         {
@@ -34,7 +34,7 @@ namespace Services
                 };
                 clients.Add(client);
 
-                //Console.WriteLine($"Id - {Client.ClientId}\nИмя - {Client.FirstName}\nФамилия - {Client.LastName}\nДата рождения - {Client.DateOfBirth}\nАдрес - {Client.Address}\nМаил - {Client.Email}\nТелефон - {Client.PhoneNumber}\n");
+                //Console.WriteLine($"Id - {client.ClientId}\nИмя - {client.FirstName}\nФамилия - {client.LastName}\nДата рождения - {client.DateOfBirth}\nАдрес - {client.Address}\nМаил - {client.Email}\nТелефон - {client.PhoneNumber}\n");
             }
             return clients;
         }
@@ -71,7 +71,7 @@ namespace Services
                 };
                 employees.Add(employee);
 
-                //Console.WriteLine($"Id - {Employee.EmployeeId}\nИмя - {Employee.FirstName}\nФамилия - {Employee.LastName}\nДатараждения - {Employee.DateOfBirth}\nАдрес - {Employee.Address}\nОтдел - {Employee.Department}\nЗарплата - {Employee.Salary}\nContract - {Employee.Contract}");
+                //Console.WriteLine($"Id - {employee.EmployeeId}\nИмя - {employee.FirstName}\nФамилия - {employee.LastName}\nДатараждения - {employee.DateOfBirth}\nАдрес - {employee.Address}\nОтдел - {employee.Department}\nЗарплата - {employee.Salary}\nContract - {employee.Contract}");
             }
             return employees;
         }
@@ -221,7 +221,22 @@ namespace Services
             Console.WriteLine("\n");
         }
 
+        /*
+        //реализовать метод, генерирующий словарь, где в качестве ключа находятся клиенты, а в качестве значения их банковский счет;
+        public static Dictionary<Client, Account> CreateDictionaryClientAccount(List<Client> clients)
+        {
+            Dictionary<Client, Account> dictionary = new Dictionary<Client, Account>();
+            Account account = new Account();            
 
+            foreach (Client client in clients)
+            {
+                account = GenerateNewAccount();
+                dictionary[client] = account;
+                //Console.WriteLine($"{client.ClientId} - {account.Amount}");
+            }
+            return dictionary;
+        }
+        */
 
         // метод, генерирующий словарь, где в качестве ключа находятся клиенты, а в качестве значения несколько банковских счетов;
         public static Dictionary<Client, List<Account>> CreateDictionaryClientAccountList(List<Client> clients)
@@ -272,6 +287,26 @@ namespace Services
             };
 
             return currency;
+        }
+        /*
+        public static void ViewDataClientAccounts(Dictionary<Client, List<Account>> Data, Client client)
+        {
+            if (ClientService.DoesClientHaveAccounts(Data, client))
+            {
+                // получаем существующий список аккаунтов клиента
+                List<Account> accountList = Data[client];
+
+                Console.WriteLine($"Аккаунты клиента {client.FirstName}:");
+                foreach (Account account in accountList)
+                {
+                    Console.WriteLine("Старт");
+                    Console.WriteLine($"Id аккаунта: {account.AccountId}. Баланс: {account.Amount}");
+                }
+            }
+            else 
+            {
+                Console.WriteLine("Данных нет");
+            }            
         }
         */
     }
