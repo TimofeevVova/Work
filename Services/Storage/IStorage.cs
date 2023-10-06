@@ -18,5 +18,5 @@ namespace Services.Storage
 
         //Delete(T item)
         void Delete(Client client);
-    }   
+    }
 }

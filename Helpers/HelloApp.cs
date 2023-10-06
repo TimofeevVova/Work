@@ -9,10 +9,10 @@ namespace HelloApp
 {
     public class ApplicationContext : DbContext // определяет контекст данных, используемый для взаимодействия с базой данных;
     {
-       
+
         public DbSet<client> clientData { get; set; }  // представляет набор объектов, которые хранятся в базе данных;
 
-        [Table ("client")]
+        [Table("client")]
         public class client  // [Required]  представляет аннотацию, которая указывает, что свойство Name обязательно должно иметь значение.
         {
             [Required]

@@ -23,7 +23,7 @@ namespace Services.Storage
             DateTime MinAge = today.AddYears(-18);
             Client newClient = new Client();
             try
-            { 
+            {
                 if (MinAge > DateOfBirth)
                 {
                     if (passportData != "")
@@ -39,7 +39,7 @@ namespace Services.Storage
 
                         clients.Add(newClient);
 
-                        List<Account> emptyAccountList = new List<Account>();                        
+                        List<Account> emptyAccountList = new List<Account>();
                         Data.Add(newClient, emptyAccountList);
 
 
@@ -79,7 +79,7 @@ namespace Services.Storage
         }
         // редактирование клиента
         public Client Update(Client client, string FirstName, string LastName, DateTime DateOfBirth, string Address, string Email, string PhoneNumber, string passportData = "")
-        {            
+        {
             // индекс клиента в списке
             int index = clients.IndexOf(client);
 
@@ -107,7 +107,7 @@ namespace Services.Storage
                             Console.WriteLine("\n");
                             Console.WriteLine("Обновление");
                             Console.WriteLine($"Имя- {clients[index].FirstName} Город- {clients[index].Address} Возраст- {clients[index].DateOfBirth:dd/MM/yyyy} Телефон- {clients[index].PhoneNumber} Id-{clients[index].ClientId}");
-                            
+
                             return clients[index];
                         }
                         else
@@ -141,7 +141,7 @@ namespace Services.Storage
                 return client;
             }
             return client;
-        }        
+        }
         // удалить клиента
         public void Delete(Client client)
         {
@@ -162,7 +162,7 @@ namespace Services.Storage
         {
             Console.WriteLine("\n");
             Console.WriteLine("Начало добавления аккаунта");
-            Account account = TestDataGenerator.GenerateNewAccount();            
+            Account account = TestDataGenerator.GenerateNewAccount();
             List<Account> accounts = new List<Account>();
             if (client.IdAccounts == null)
             {
@@ -177,7 +177,7 @@ namespace Services.Storage
             }
             else
             {
-                account.AccountId += 1; 
+                account.AccountId += 1;
             }
 
             // установка связи аккаунта и клиента
@@ -185,12 +185,12 @@ namespace Services.Storage
             client.IdAccounts.Add(account.AccountId);
 
             if (Data.ContainsKey(client)) // клиент существует
-            {                
+            {
                 Data[client].Add(account);
                 Console.WriteLine("Записан просто счет для клиента");
             }
             else // клиент не существует
-            {                
+            {
                 accounts.Add(account);
                 Data.Add(client, accounts);
                 Console.WriteLine("Записан новый клиент и счет для него");
@@ -238,7 +238,7 @@ namespace Services.Storage
         }
         // Удалить аккаунт
         public Client DeleteAccount(Client client, Account account)
-        {            
+        {
             if (Data.TryGetValue(client, out List<Account> accountList))
             {
                 // удаляем аккаунт из списка
@@ -263,5 +263,5 @@ namespace Services.Storage
         {
             return clients.Where(filter);
         }
-    }    
+    }
 }

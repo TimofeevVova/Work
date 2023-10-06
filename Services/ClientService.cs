@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Models;
 using Services;
 using Services.Exceptions;
-using NUnit.Framework;
 using System.Net;
 using Services.Storage;
 using HelloApp;
@@ -14,7 +13,7 @@ using static HelloApp.ApplicationContext;
 
 namespace Services
 {
-    public class ClientService 
+    public class ClientService
     {
         private readonly IClientStorage storage;
         ApplicationContext _dbContext;
@@ -29,12 +28,12 @@ namespace Services
         {
             if (Data.ContainsKey(client))
             {
-                List<Account> accountList = Data[client];               
+                List<Account> accountList = Data[client];
                 bool hasAccount = accountList.Any(account => account.AccountId == idAccount);
                 return hasAccount;
             }
             else
-            {                
+            {
                 return false;
             }
         }

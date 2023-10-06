@@ -179,9 +179,9 @@ namespace Services
         {
             Employee employeeWithMinSalaru = new Employee();
 
-            foreach(Employee employee in Employees)
+            foreach (Employee employee in Employees)
             {
-                if(employee.Salary < minSalary)
+                if (employee.Salary < minSalary)
                 {
                     employeeWithMinSalaru = employee;
                     Console.WriteLine("\n");
@@ -190,7 +190,7 @@ namespace Services
                     break;
                 }
             }
-            
+
             return employeeWithMinSalaru;
         }
 
