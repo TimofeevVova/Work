@@ -17,7 +17,7 @@ namespace Services.Storage
 
         public Dictionary<Client, List<Account>> Data { set; get; } = new Dictionary<Client, List<Account>>();
         //Добавить нового клиента
-        public Client Add(string FirstName, string LastName, DateTime DateOfBirth, string Addres, string Email, int PhoneNumber, string passportData = "")
+        public Client Add(string FirstName, string LastName, DateTime DateOfBirth, string Addres, string Email, string PhoneNumber, string passportData = "")
         {
             DateTime today = DateTime.Today;
             DateTime MinAge = today.AddYears(-18);
@@ -78,7 +78,7 @@ namespace Services.Storage
             return newClient;
         }
         // редактирование клиента
-        public Client Update(Client client, string FirstName, string LastName, DateTime DateOfBirth, string Address, string Email, int PhoneNumber, string passportData = "")
+        public Client Update(Client client, string FirstName, string LastName, DateTime DateOfBirth, string Address, string Email, string PhoneNumber, string passportData = "")
         {            
             // индекс клиента в списке
             int index = clients.IndexOf(client);

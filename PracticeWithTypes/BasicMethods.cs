@@ -41,7 +41,7 @@ namespace PracticeWithTypes
 
                 ClientId = 4,
                 Email = "anna@example.com",
-                PhoneNumber = 77900000
+                PhoneNumber = "77900000"
             };
             Currency usd = new Currency // заполнение валюты
             {
@@ -152,8 +152,8 @@ namespace PracticeWithTypes
                 Address = "Суклея",
 
                 ClientId = 1,
-                Email = "Client@example.com",
-                PhoneNumber = 1234567890
+                Email = "client@example.com",
+                PhoneNumber = "123-456-7890"
             };
 
             Employee employee2 = BankService.ConvertClientToEmployee(client);

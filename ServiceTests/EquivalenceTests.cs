@@ -12,8 +12,6 @@ namespace ServiceTests
 {
     public class EquivalenceTests
     {
-        // не актуально
-        /*
         static Random random = new Random();
 
         // создать нового клиента, данные которого есть в словаре и попробовать получить данные аккаунта по этому клиенту как ключу
@@ -26,22 +24,22 @@ namespace ServiceTests
             //генерация коллекции клиент- несколько банковских счетов
             var DictionatyClientAccountList = TestDataGenerator.CreateDictionaryClientAccountList(GenerationClients);
 
-            List<Account> Account = new List<Account>();
+            List<Account> account = new List<Account>();
 
             //Создание рандомного клиента
             int value = random.Next(1, count);
             Client newClient = new Client();
-            foreach (Client Client in GenerationClients)
+            foreach (Client client in GenerationClients)
             {
-                if(Client.ClientId == value)
+                if(client.ClientId == value)
                 {
-                    newClient.FirstName = Client.FirstName;
-                    newClient.LastName = Client.LastName;
-                    newClient.DateOfBirth = Client.DateOfBirth;
-                    newClient.Address = Client.Address;
-                    newClient.ClientId = Client.ClientId;
-                    newClient.Email = Client.Email;
-                    newClient.PhoneNumber = Client.PhoneNumber;
+                    newClient.FirstName = client.FirstName;
+                    newClient.LastName = client.LastName;
+                    newClient.DateOfBirth = client.DateOfBirth;
+                    newClient.Address = client.Address;
+                    newClient.ClientId = client.ClientId;
+                    newClient.Email = client.Email;
+                    newClient.PhoneNumber = client.PhoneNumber;
                 }
             }
 
@@ -55,15 +53,14 @@ namespace ServiceTests
                 foreach (Account account2 in  clientAccounts)
                 {
                     Console.WriteLine($"Id аккаунта - {account2.AccountId}");
-                    Account.Add(account2);
+                    account.Add(account2);
                 }
             }
             else
             {
                 Console.WriteLine($"Аккаунты не найдены для клиента {newClient.ClientId}");
             }
-            return Account;
-        } 
-        */
+            return account;
+        }        
     }
 }
