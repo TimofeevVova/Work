@@ -10,6 +10,8 @@ namespace Services.Storage
 {
     public interface IStorage
     {
+
+        /*
         //Add(T item)
         Client Add(string FirstName, string LastName, DateTime DateOfBirth, string Address, string Email, string PhoneNumber, string passportData = "");
 
@@ -18,5 +20,6 @@ namespace Services.Storage
 
         //Delete(T item)
         void Delete(Client client);
+        */
     }
 }

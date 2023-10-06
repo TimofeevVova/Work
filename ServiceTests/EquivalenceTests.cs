@@ -16,10 +16,12 @@ namespace ServiceTests
 
         // создать нового клиента, данные которого есть в словаре и попробовать получить данные аккаунта по этому клиенту как ключу
         //усложнить задачу на случай, когда у клиента несколько банковских счетов;
+       
+        /*
         public static List<Account> GetHashCodeNecessityPositivTest(int count)
         {
             //генерация кликентов
-            var GenerationClients = TestDataGenerator.Generation1000Clients(count);
+            //var GenerationClients = TestDataGenerator.GenerationClients(count);
 
             //генерация коллекции клиент- несколько банковских счетов
             var DictionatyClientAccountList = TestDataGenerator.CreateDictionaryClientAccountList(GenerationClients);
@@ -62,5 +64,6 @@ namespace ServiceTests
             }
             return account;
         }
+        */
     }
 }

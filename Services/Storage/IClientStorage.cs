@@ -9,6 +9,7 @@ namespace Services.Storage
 {
     public interface IClientStorage : IStorage
     {
+        /*
         //AddAccount
         Dictionary<Client, List<Account>> AddAccount(Client client);
         //UpdateAccount
@@ -19,6 +20,6 @@ namespace Services.Storage
 
         //свойство Dictionary<Client, List<Account>> Data.
         Dictionary<Client, List<Account>> Data { get; set; }
-
+        */
     }
 }

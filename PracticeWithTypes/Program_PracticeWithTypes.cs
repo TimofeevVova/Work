@@ -16,6 +16,7 @@ namespace PracticeWithTypes
     {
         static void Main(string[] args)
         {
+            /*
             Dictionary<Client, List<Account>> ClientAccount = new Dictionary<Client, List<Account>>();
             // экземпляр класса, реализующего интерфейс IStorage
             IClientStorage storage2 = new ClientStorage();
@@ -50,6 +51,7 @@ namespace PracticeWithTypes
             storage2.Delete(client1);
 
             Console.ReadKey();
+            */
         }
     }
 

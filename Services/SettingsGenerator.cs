@@ -86,5 +86,13 @@ namespace Services
             return $"{number}";
         }
 
+        public static string GetPassportData()
+        {
+            
+            int number = random.Next(100000, 999999);
+            string data = "I" + number;
+            return data;
+        }
+
     }
 }

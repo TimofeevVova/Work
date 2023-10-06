@@ -9,7 +9,7 @@ using Services.Exceptions;
 
 namespace Services.Storage
 {
-    public class ClientStorage : IClientStorage
+    public class ClientStorage
     {
         Random random = new Random();
         //в хранилище добавить readonly список для хранение клиентов банка, 
@@ -32,7 +32,7 @@ namespace Services.Storage
                         newClient.LastName = LastName;
                         newClient.DateOfBirth = DateOfBirth;
                         newClient.Address = Addres;
-                        newClient.SetPasportData(passportData);
+                        newClient.PassportData = passportData;
                         newClient.Email = Email;
                         newClient.PhoneNumber = PhoneNumber;
                         newClient.ClientId = random.Next(100, 9999);
@@ -77,6 +77,7 @@ namespace Services.Storage
             }
             return newClient;
         }
+        /*
         // редактирование клиента
         public Client Update(Client client, string FirstName, string LastName, DateTime DateOfBirth, string Address, string Email, string PhoneNumber, string passportData = "")
         {
@@ -156,7 +157,7 @@ namespace Services.Storage
             }
         }
 
-
+        
         // добавить новый аккаунт клиенту
         public Dictionary<Client, List<Account>> AddAccount(Client client)
         {
@@ -201,6 +202,7 @@ namespace Services.Storage
 
             return Data;
         }
+        
         // Обновить данные в аккаунте
         public Dictionary<Client, List<Account>> UpdateAccount(Client client, int idAccount, int newAmount)
         {
@@ -257,7 +259,7 @@ namespace Services.Storage
             }
             return client;
         }
-
+        */
         // полечение данных по фильтру
         public IEnumerable<Client> GetClients(Func<Client, bool> filter)
         {

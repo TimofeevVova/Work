@@ -5,23 +5,25 @@ VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{05B92CBA-EF5D-408A-9366-9B8DB0D39D26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{22056DF9-66F3-4D41-AC28-83A70C369FDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{22056DF9-66F3-4D41-AC28-83A70C369FDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{A6A5907E-2E16-4347-A620-61738E826FBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{A6A5907E-2E16-4347-A620-61738E826FBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTests", "ServiceTests\ServiceTests.csproj", "{98B48BCF-4BA1-4C82-8539-171135CE88F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTests", "ServiceTests\ServiceTests.csproj", "{98B48BCF-4BA1-4C82-8539-171135CE88F3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{930275CB-8AA7-4344-A6F2-4904603B35A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Helpers\Helpers.csproj", "{57E7E4F1-CA06-48B1-B8FB-4ADA83C6FA20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helpers", "Helpers\Helpers.csproj", "{57E7E4F1-CA06-48B1-B8FB-4ADA83C6FA20}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E6EE2CE0-B5A7-4FB0-85B5-EB304099E04C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Tests", "Services.Tests\Services.Tests.csproj", "{5FD49F4D-B95E-49D1-9284-4664284251AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Tests", "Services.Tests\Services.Tests.csproj", "{5FD49F4D-B95E-49D1-9284-4664284251AB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{215933FD-1983-49DD-9D59-F05AD444B7BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PracticeWithTypes", "PracticeWithTypes\PracticeWithTypes.csproj", "{D6466E86-2282-48ED-BB96-9DD318C09CA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PracticeWithTypes", "PracticeWithTypes\PracticeWithTypes.csproj", "{D6466E86-2282-48ED-BB96-9DD318C09CA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainProgram", "MainProgram\MainProgram.csproj", "{976F2DCA-6485-4C1A-B799-B3E9EFAB27D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{D6466E86-2282-48ED-BB96-9DD318C09CA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6466E86-2282-48ED-BB96-9DD318C09CA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6466E86-2282-48ED-BB96-9DD318C09CA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{976F2DCA-6485-4C1A-B799-B3E9EFAB27D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{976F2DCA-6485-4C1A-B799-B3E9EFAB27D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{976F2DCA-6485-4C1A-B799-B3E9EFAB27D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{976F2DCA-6485-4C1A-B799-B3E9EFAB27D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

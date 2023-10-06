@@ -8,6 +8,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Services;
 
 namespace Services
 {
@@ -15,28 +16,28 @@ namespace Services
     {
         static Random random = new Random();
 
-        //а) генерации коллекции 1000 клиентов банка;
-        public static List<Client> Generation1000Clients(int count)
+        //а) генерации коллекции клиентов банка;
+        public static void GenerationClients(int count)
         {
-            List<Client> clients = new List<Client>();
+            ClientService clientService = new ClientService();
 
             for (int i = 0; i < count; i++)
             {
                 Client client = new Client
                 {
-                    ClientId = i + 1,
                     FirstName = SettingsGenerator.GetRandomFirstName(),
                     LastName = SettingsGenerator.GetRandomName(),
                     DateOfBirth = SettingsGenerator.GetRandomDateOfBirth(),
-                    Address = SettingsGenerator.GetRandomAddress(),
+                    Address = SettingsGenerator.GetRandomAddress(),                    
+                    PassportData = SettingsGenerator.GetPassportData(),
                     Email = SettingsGenerator.GetRandomEmail(),
                     PhoneNumber = SettingsGenerator.GetRandomPhoneNumber()
                 };
-                clients.Add(client);
+
+                clientService.AddClient(client);
 
                 //Console.WriteLine($"Id - {client.ClientId}\nИмя - {client.FirstName}\nФамилия - {client.LastName}\nДата рождения - {client.DateOfBirth}\nАдрес - {client.Address}\nМаил - {client.Email}\nТелефон - {client.PhoneNumber}\n");
             }
-            return clients;
         }
 
         //б) генерации словаря в качестве ключа которого применяется номер телефона клиента, в качестве значения сам клиент;
@@ -238,30 +239,35 @@ namespace Services
         }
         */
 
+
+
         // метод, генерирующий словарь, где в качестве ключа находятся клиенты, а в качестве значения несколько банковских счетов;
-        public static Dictionary<Client, List<Account>> CreateDictionaryClientAccountList(List<Client> clients)
-        {
-            Dictionary<Client, List<Account>> dictionary = new Dictionary<Client, List<Account>>();
+        /*
+       public static Dictionary<Client, List<Account>> CreateDictionaryClientAccountList(List<Client> clients)
+       {
+           Dictionary<Client, List<Account>> dictionary = new Dictionary<Client, List<Account>>();
 
-            foreach (Client client in clients)
-            {
-                List<Account> accounts = new List<Account>
-                {
-                    GenerateNewAccount(),
-                    GenerateNewAccount()
-                };
-                dictionary[client] = accounts;
+           foreach (Client client in clients)
+           {
+               List<Account> accounts = new List<Account>
+               {
+                   GenerateNewAccount(),
+                   GenerateNewAccount()
+               };
+               dictionary[client] = accounts;
 
-                Console.WriteLine($"Клиент {client.FirstName} {client.LastName} имеет {accounts.Count} аккаунты:");
-                foreach (Account account in accounts)
-                {
-                    Console.WriteLine($" Id аккаунта: {account.AccountId}. Баланс: {account.Amount}");
-                }
-            }
+               Console.WriteLine($"Клиент {client.FirstName} {client.LastName} имеет {accounts.Count} аккаунты:");
+               foreach (Account account in accounts)
+               {
+                   Console.WriteLine($" Id аккаунта: {account.AccountId}. Баланс: {account.Amount}");
+               }
+           }
 
-            return dictionary;
-        }
+           return dictionary;
+       }
+       */
 
+        /*
         // генерация нового аккаунта
         public static Account GenerateNewAccount()
         {
@@ -278,6 +284,8 @@ namespace Services
             return account;
 
         }
+        */
+
         public static Currency GenerateCurrency()
         {
             Currency currency = new Currency()

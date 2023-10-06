@@ -22,7 +22,7 @@ namespace Helpers
 
                 foreach (var client in allClients)
                 {
-                    Console.WriteLine($"ID: {client.Id} Имя: {client.Name}, Фамилия: {client.Famify} Адрес: {client.Address}, ДатаРожд: {client.Date.ToString("yyyy-MM-dd")}, Email: {client.Email}");
+                    Console.WriteLine($"ID: {client.ClientId} Имя: {client.FirstName}, Фамилия: {client.LastName} Адрес: {client.Address}, ДатаРожд: {client.DateOfBirth.ToString("yyyy-MM-dd")}, Email: {client.Email}");
                 }
             }
 
