@@ -23,6 +23,7 @@ namespace MainProgram
                     Console.WriteLine($"ID: {client.ClientId} Имя: {client.FirstName}, Фамилия: {client.LastName} Адрес: {client.Address}, ДатаРожд: {client.DateOfBirth.ToString("yyyy-MM-dd")}, Email: {client.Email}");
                 }
 
+
                 foreach (var account in allAccounts)
                 {
                     Console.Write("Аккаунты:");
