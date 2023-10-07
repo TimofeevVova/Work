@@ -19,7 +19,7 @@ namespace Services
         //а) генерации коллекции клиентов банка;
         public static void GenerationClients(int count)
         {
-            ClientService clientService = new ClientService();
+            ClientService clientService = new ClientService();            
 
             for (int i = 0; i < count; i++)
             {
@@ -53,30 +53,26 @@ namespace Services
         }
 
         //в) генерации коллекции 1000 сотрудников банка.
-        public static List<Employee> Generation1000Employee(int count)
+        public static void GenerationEmployees(int count)
         {
-            List<Employee> employees = new List<Employee>();
+            EmployeeService employeeService = new EmployeeService();
 
             for (int i = 0; i < count; i++)
             {
                 Employee employee = new Employee
                 {
-                    EmployeeId = i + 1,
                     FirstName = SettingsGenerator.GetRandomFirstName(),
                     LastName = SettingsGenerator.GetRandomName(),
                     DateOfBirth = SettingsGenerator.GetRandomDateOfBirth(),
                     Address = SettingsGenerator.GetRandomAddress(),
+                    PassportData = SettingsGenerator.GetPassportData(),
                     Department = SettingsGenerator.GetRandomDepartment(),
                     Salary = SettingsGenerator.GetRandomSalary(),
                     Contract = SettingsGenerator.GetRandomContract(),
                 };
-                employees.Add(employee);
-
-                //Console.WriteLine($"Id - {employee.EmployeeId}\nИмя - {employee.FirstName}\nФамилия - {employee.LastName}\nДатараждения - {employee.DateOfBirth}\nАдрес - {employee.Address}\nОтдел - {employee.Department}\nЗарплата - {employee.Salary}\nContract - {employee.Contract}");
+                employeeService.AddEmployee(employee);
             }
-            return employees;
         }
-
 
         //а) пользуясь инструментом “Stopwatch”, провести замер времени выполнения поиска клиента по его номеру телефона среди элементов списка;
         // 55 тиков

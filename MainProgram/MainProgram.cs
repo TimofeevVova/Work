@@ -20,6 +20,7 @@ namespace Helpers
             // создание рандобных клиентов+аккаунтов
             //Console.WriteLine("Создание даных");
             //TestDataGenerator.GenerationClients(1);
+            //TestDataGenerator.GenerationEmployees(1);
 
             /*
             // Выводим всех клиентов из базы данных
