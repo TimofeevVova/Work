@@ -31,13 +31,21 @@ namespace Services
             else { Console.WriteLine("Такого Id нет в базе данных"); }
         }
 
-
+        // показать данные списка клиентов
+        public void ShowSomeClientsData(List<Client> clients)
+        {
+            foreach (Client client in clients) 
+            {
+                ShowClientData(client);
+            }            
+        }
 
         //а) получить клиента по идентификатору;
         public Client GetClient(int clientId)
         {
             return _dbContext.clientData.FirstOrDefault(c => c.ClientId == clientId);
         }
+
         //б) добавить нового клиента(автоматически создает дефолтный лицевой счет);
         public void AddClient(Client client)
         {
@@ -67,6 +75,7 @@ namespace Services
                 }
             }
         }
+
         //в) добавить клиенту новый лицевой счет(принимает на вход Id клиента);
         public void AddAccount(int clientId)
         {
@@ -107,7 +116,7 @@ namespace Services
 
                     if (existingClient != null)
                     {
-                        existingClient.ClientId = client.ClientId != 0 ? client.ClientId : existingClient.ClientId;
+                        //existingClient.ClientId = client.ClientId != 0 ? client.ClientId : existingClient.ClientId;
                         existingClient.FirstName = client.FirstName != null ? client.FirstName : existingClient.FirstName;
                         existingClient.LastName = client.LastName != null ? client.LastName : existingClient.LastName;
                         existingClient.DateOfBirth = client.DateOfBirth != default(DateTime) ? client.DateOfBirth : existingClient.DateOfBirth;
@@ -118,7 +127,6 @@ namespace Services
 
                         _dbContext.SaveChanges();
                     }
-
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -155,7 +163,6 @@ namespace Services
             else { Console.WriteLine("Такого аккаунта нет в базе данных"); }
         }
 
-
         //0000ж) метод возвращающий список клиентов, удовлетворяющих фильтру(+ пагинация) (протестировать на операторах Where, OrderBy, GroupBy, Take, посмотреть sql, в логах(консоли), оценить отличие от Linq;
         //0000з) в рамках пункта “ж”, в режиме отладки, проследить в какой момент времени формируемый из сегментов фильтра зарос, выполняется.
         public List<Client> FilterClients(string filter)
@@ -164,9 +171,21 @@ namespace Services
             return clients;
         }
 
+        public List<Client> GetFilteredClients(Func<Client, bool> filter, Func<Client, object> orderBy, int pageNumber, int pageSize)
+        {
+            var query = _dbContext.clientData.Where(filter);
 
+            if (orderBy != null)
+            {
+                query = query.OrderBy(orderBy);
+            }
 
+            // Применение пагинации
+            var paginatedResult = query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            // вывод данных в консоль
+            ShowSomeClientsData(paginatedResult);
 
-
+            return paginatedResult;
+        }
     }
 }
