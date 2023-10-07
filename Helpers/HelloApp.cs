@@ -9,8 +9,9 @@ namespace HelloApp
 {
     public class ApplicationContext : DbContext // определяет контекст данных, используемый для взаимодействия с базой данных;
     {
-        public DbSet<Client> clientData { get; set; }  // представляет набор объектов, которые хранятся в базе данных;
-        public DbSet<Account> accountData { get; set; }  // представляет набор объектов, которые хранятся в базе данных;
+        public DbSet<Client> clientData { get; set; }  // представляет набор объектов Клиент, которые хранятся в базе данных;
+        public DbSet<Account> accountData { get; set; }  // представляет набор объектов Аккаунт, которые хранятся в базе данных;
+        public DbSet<Employee> employeeData { get; set; }  // представляет набор объектов Сотрудник, которые хранятся в базе данных;
 
         public ApplicationContext()
         {

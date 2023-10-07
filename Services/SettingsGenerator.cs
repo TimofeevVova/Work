@@ -77,7 +77,7 @@ namespace Services
 
         public static int GetRandomSalary()
         {
-            return random.Next(5, 20) * 100;
+            return random.Next(5, 70) * 100;
         }
 
         public static string GetRandomContract()
