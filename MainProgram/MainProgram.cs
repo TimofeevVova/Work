@@ -15,8 +15,6 @@ namespace Helpers
         {
             ClientService clientService = new ClientService();
 
-            
-
             Console.WriteLine("Start program");
 
             // создание рандобных клиентов+аккаунтов
@@ -69,8 +67,6 @@ namespace Helpers
                 // удаление аккаунта
                 //clientService.RemoveAccount(50);
             }
-        
-
 
             // Пример фильтрации по имени и сортировки по дате рождения
             Func<Client, bool> nameFilter = c => c.FirstName == "Лев" && (c.DateOfBirth > new DateTime(1990, 1, 1)); // условия фильтрации или null
@@ -78,12 +74,30 @@ namespace Helpers
             int page = 1; // выводимая страница
             int pageSize = 10; // размер страницы
 
-
+            // получаем список сортированных клиентов по фильтру 
             List<Client> result = clientService.GetFilteredClients(nameFilter, orderByDateOfBirth, page, pageSize);
 
+
+            // Работа с IDisposable
             var db = new ApplicationContext();
             TestClass testClass = new TestClass(db);
             testClass.StartOpenConnections();
+
+
+            // Финализатор
+            ConnectionAndMemory connectionAndMemory = new ConnectionAndMemory(99);
+            connectionAndMemory.CreateConnectionsAndMemory(99);
+
+            Console.WriteLine($"Total Allocated:{ConnectionAndMemory.TotalAllocated}");
+            Console.WriteLine($"Total Freed: {ConnectionAndMemory.TotalFreed}");
+            /*
+            Зашли в ApplicationContext
+            Запрос к БД
+            Получили ответ
+            Total Allocated:198532
+            Total Freed: 0
+            */
+
 
 
             Console.ReadKey();
