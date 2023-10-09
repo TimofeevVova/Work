@@ -8,8 +8,8 @@ using Services;
 using Services.Exceptions;
 using System.Net;
 using Services.Storage;
-using HelloApp;
-using static HelloApp.ApplicationContext;
+using Helpers;
+using static Helpers.ApplicationContext;
 
 namespace Services
 {

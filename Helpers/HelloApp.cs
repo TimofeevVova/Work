@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
-namespace HelloApp
+namespace Helpers
 {
     public class ApplicationContext : DbContext // определяет контекст данных, используемый для взаимодействия с базой данных;
     {

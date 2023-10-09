@@ -1,11 +1,11 @@
-﻿using HelloApp;
-using Models;
+﻿using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Services;
+using MainProgram;
 
 namespace Helpers
 {
@@ -67,8 +67,6 @@ namespace Helpers
                 // удаление аккаунта
                 //clientService.RemoveAccount(50);
             }
-        
-
 
             // Пример фильтрации по имени и сортировки по дате рождения
             Func<Client, bool> nameFilter = c => c.FirstName == "Лев" && (c.DateOfBirth > new DateTime(1990, 1, 1)); // условия фильтрации или null
@@ -76,17 +74,30 @@ namespace Helpers
             int page = 1; // выводимая страница
             int pageSize = 10; // размер страницы
 
-
+            // получаем список сортированных клиентов по фильтру 
             List<Client> result = clientService.GetFilteredClients(nameFilter, orderByDateOfBirth, page, pageSize);
 
 
+            // Работа с IDisposable
+            var db = new ApplicationContext();
+            Dispose testClass = new Dispose(db);
+            testClass.StartOpenConnections();
 
 
+            // Финализатор
+            int nubber = 400;
+            ConnectionAndMemory connectionAndMemory = new ConnectionAndMemory(nubber);
+            connectionAndMemory.CreateConnectionsAndMemory(nubber);
 
-
-
-
-
+            Console.WriteLine($"Total Allocated:{ConnectionAndMemory.TotalAllocated}");
+            Console.WriteLine($"Total Freed: {ConnectionAndMemory.TotalFreed}");
+            /*
+            Зашли в ApplicationContext
+            Запрос к БД
+            Получили ответ
+            Total Allocated:198532
+            Total Freed: 0
+            */
 
 
 
