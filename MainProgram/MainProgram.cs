@@ -1,11 +1,11 @@
-﻿using HelloApp;
-using Models;
+﻿using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Services;
+using MainProgram;
 
 namespace Helpers
 {
@@ -14,6 +14,8 @@ namespace Helpers
         static void Main(string[] args)
         {
             ClientService clientService = new ClientService();
+
+            
 
             Console.WriteLine("Start program");
 
@@ -79,15 +81,9 @@ namespace Helpers
 
             List<Client> result = clientService.GetFilteredClients(nameFilter, orderByDateOfBirth, page, pageSize);
 
-
-
-
-
-
-
-
-
-
+            var db = new ApplicationContext();
+            TestClass testClass = new TestClass(db);
+            testClass.StartOpenConnections();
 
 
             Console.ReadKey();
