@@ -30,9 +30,15 @@ namespace MainProgram
         private void OpenConnection()
         {
             // Используем контекст данных
-            _dbContext.Database.OpenConnection();
-            LogOpenedConnectionCount(); // Записываем число открытых подключений
+            //_dbContext.Database.OpenConnection();
+            // LogOpenedConnectionCount(); // Записываем число открытых подключений
 
+            using (var connection = _dbContext.Database.GetDbConnection())
+            {
+                connection.Open();
+                LogOpenedConnectionCount();
+                // Ваш код работы с открытым соединением
+            }
         }
 
         private void LogOpenedConnectionCount()
