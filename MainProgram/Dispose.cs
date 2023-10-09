@@ -9,12 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MainProgram
 {
-    internal class TestClass
+    internal class Dispose
     {
         private IConfiguration Configuration { get; }
         private ApplicationContext _dbContext; // поле для хранения контекста данных
 
-        public TestClass(ApplicationContext dbContext) // Принимаем контекст данных через конструктор
+        public Dispose(ApplicationContext dbContext) // Принимаем контекст данных через конструктор
         {
             _dbContext = dbContext;
 

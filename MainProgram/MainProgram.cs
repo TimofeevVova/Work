@@ -80,7 +80,7 @@ namespace Helpers
 
             // Работа с IDisposable
             var db = new ApplicationContext();
-            TestClass testClass = new TestClass(db);
+            Dispose testClass = new Dispose(db);
             testClass.StartOpenConnections();
 
 
