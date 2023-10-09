@@ -85,8 +85,9 @@ namespace Helpers
 
 
             // Финализатор
-            ConnectionAndMemory connectionAndMemory = new ConnectionAndMemory(99);
-            connectionAndMemory.CreateConnectionsAndMemory(99);
+            int nubber = 400;
+            ConnectionAndMemory connectionAndMemory = new ConnectionAndMemory(nubber);
+            connectionAndMemory.CreateConnectionsAndMemory(nubber);
 
             Console.WriteLine($"Total Allocated:{ConnectionAndMemory.TotalAllocated}");
             Console.WriteLine($"Total Freed: {ConnectionAndMemory.TotalFreed}");
