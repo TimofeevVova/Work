@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Services;
 using MainProgram;
+using ExportTool;
 
 namespace Helpers
 {
@@ -77,6 +78,8 @@ namespace Helpers
             // получаем список сортированных клиентов по фильтру 
             List<Client> result = clientService.GetFilteredClients(nameFilter, orderByDateOfBirth, page, pageSize);
 
+            nameFilter = c => true;
+            List<Client> allClient = clientService.GetFilteredClients(nameFilter, null, page, 500);
 
             // Работа с IDisposable
             var db = new ApplicationContext();
@@ -85,7 +88,7 @@ namespace Helpers
 
 
             // Финализатор
-            int nubber = 400;
+            int nubber = 10;
             ConnectionAndMemory connectionAndMemory = new ConnectionAndMemory(nubber);
             connectionAndMemory.CreateConnectionsAndMemory(nubber);
 
@@ -101,6 +104,16 @@ namespace Helpers
 
 
 
+            // путь к файлу, название файла
+            string pathToDirectory = "D:\\Work\\Work\\test";
+            string textFileName = "test2.csv";            
+            ExportService exportService = new ExportService(pathToDirectory, textFileName);
+
+            // из базы в файл
+            //exportService.SaveClientToFile(allClient);
+
+            // из файла в базу
+            //exportService.FromFileToDB();
             Console.ReadKey();
         }
     }
