@@ -21,6 +21,11 @@ namespace Services
             _dbContext = new ApplicationContext();
         }
 
+        public ClientService(ApplicationContext dbContext)
+        {
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+        }
+
         // показать данные клиента
         public void ShowClientData (Client client)
         {
@@ -49,7 +54,7 @@ namespace Services
         //б) добавить нового клиента(автоматически создает дефолтный лицевой счет);
         public void AddClient(Client client)
         {
-            using (var transaction = _dbContext.Database.BeginTransaction()) 
+            using (var transaction = _dbContext.Database.BeginTransaction())
             {
                 try
                 {
@@ -59,7 +64,7 @@ namespace Services
                     Account account = new Account
                     {
                         Currency = "USD",
-                        Amount = 0,        
+                        Amount = 0,
                         OwnerId = client.ClientId
                     };
 
@@ -70,7 +75,7 @@ namespace Services
                 }
                 catch (Exception)
                 {
-                    transaction.Rollback(); 
+                    transaction.Rollback();
                     throw;
                 }
             }
@@ -187,5 +192,24 @@ namespace Services
 
             return paginatedResult;
         }
+
+
+        // добавление баланса на счет
+        public void AddBalanse(int accountId, int count)
+        {
+            Account account = _dbContext.accountData.FirstOrDefault(c => c.AccountId == accountId);
+
+            if (account != null)
+            {
+                account.Amount += count;
+                _dbContext.SaveChanges();
+                Console.WriteLine($"В аккаунт: {accountId} начислено: {count}");
+            }
+            else
+            {
+                Console.WriteLine("Аккаунт не найден");
+            }
+        }
+
     }
 }

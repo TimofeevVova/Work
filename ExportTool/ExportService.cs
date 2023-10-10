@@ -32,8 +32,11 @@ namespace ExportTool
 
             string fullPath = Path.Combine(_pathToDirectory, _csvFileName);
 
-            using (var writer = new StreamWriter(fullPath))
-            using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+            using (var writer = new StreamWriter(fullPath, false, Encoding.UTF8))
+            using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                Delimiter = ";"
+            }))
             {
                 csv.WriteRecords(clients);
             }
@@ -41,11 +44,11 @@ namespace ExportTool
         }
 
         // из файла в БД
-        public void FromFileToDB()
+        public void FromFileToDB(string FileName)
         {
             ClientService clientService = new ClientService();
 
-            string fullPath = Path.Combine(_pathToDirectory, _csvFileName);
+            string fullPath = Path.Combine(_pathToDirectory, FileName);
 
             using (var reader = new StreamReader(fullPath))
             using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = ";" }))
@@ -54,10 +57,13 @@ namespace ExportTool
 
                 foreach (var client in clients)
                 {
+                    client.ClientId = 0;
                     clientService.AddClient(client);
                 }
             }
             Console.WriteLine("Данные успешно добавлены в базу из CSV файла");
         }
+
+        
     }
 }

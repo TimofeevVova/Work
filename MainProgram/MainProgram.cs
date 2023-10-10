@@ -78,6 +78,7 @@ namespace Helpers
             // получаем список сортированных клиентов по фильтру 
             List<Client> result = clientService.GetFilteredClients(nameFilter, orderByDateOfBirth, page, pageSize);
 
+            // е клиенты с базы
             nameFilter = c => true;
             List<Client> allClient = clientService.GetFilteredClients(nameFilter, null, page, 500);
 
@@ -114,6 +115,21 @@ namespace Helpers
 
             // из файла в базу
             //exportService.FromFileToDB();
+
+
+
+            // чтение из БД и запись в файл и одновременно запись в БД из файла
+            //ThreadAndTaskTests.ExportAndInput(allClient);
+
+            //добавление баланса на счет
+            //clientService.AddBalanse(44, 500);
+
+
+
+            ThreadAndTaskTests.TestAccruals(49, 100);
+
+
+
             Console.ReadKey();
         }
     }
