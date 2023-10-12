@@ -211,5 +211,28 @@ namespace Services
             }
         }
 
+        // списание баланса со счета
+        public void WritingOffMoney(int accountId, double count)
+        {
+            Account account = _dbContext.accountData.FirstOrDefault(c => c.AccountId == accountId);
+
+            if (account != null)
+            {
+                if (account.Amount > 0)
+                {
+                    account.Amount -= count;
+                    _dbContext.SaveChanges();
+                    Console.WriteLine($"В аккаунте: {accountId} списано: {count} единиц денег");
+                }
+                else
+                {
+                    Console.WriteLine($"В аккаунте: {accountId} недостаточно средств");
+                }                
+            }
+            else
+            {
+                Console.WriteLine("Аккаунт не найден");
+            }
+        }
     }
 }
