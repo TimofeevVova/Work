@@ -34,7 +34,7 @@ namespace Models
 
         [Required]
         [Column("amount")]
-        public int Amount { get; set; }
+        public double Amount { get; set; }
 
         [Required]
         [Column("owner_id")]

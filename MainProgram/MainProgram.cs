@@ -15,6 +15,7 @@ namespace Helpers
         static void Main(string[] args)
         {
             ClientService clientService = new ClientService();
+            CashDispenserService cashDispenserService = new CashDispenserService(10);
 
             Console.WriteLine("Start program");
 
@@ -125,9 +126,18 @@ namespace Helpers
             //clientService.AddBalanse(44, 500);
 
 
+            // параллельное начисление аккаунту средств через 2 потока
+            //ThreadAndTaskTests.TestAccruals(49, 100);
 
-            ThreadAndTaskTests.TestAccruals(49, 100);
-
+            // списание средств с ограничением потоков
+            int i = 0;
+            while ( i < 10 )
+            {
+                cashDispenserService.CashWithdrawalAsync(49, 100);
+                i++;
+                Console.WriteLine("Вошли в цикл начисления");
+            }
+            
 
 
             Console.ReadKey();
