@@ -58,6 +58,7 @@ namespace Services
             {
                 try
                 {
+                    client.ClientId = 0;
                     _dbContext.clientData.Add(client);
                     _dbContext.SaveChanges();
 
@@ -170,11 +171,6 @@ namespace Services
 
         //0000ж) метод возвращающий список клиентов, удовлетворяющих фильтру(+ пагинация) (протестировать на операторах Where, OrderBy, GroupBy, Take, посмотреть sql, в логах(консоли), оценить отличие от Linq;
         //0000з) в рамках пункта “ж”, в режиме отладки, проследить в какой момент времени формируемый из сегментов фильтра зарос, выполняется.
-        public List<Client> FilterClients(string filter)
-        {
-            List<Client> clients = new List<Client>();            
-            return clients;
-        }
 
         public List<Client> GetFilteredClients(Func<Client, bool> filter, Func<Client, object> orderBy, int pageNumber, int pageSize)
         {

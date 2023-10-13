@@ -1,0 +1,1 @@
+{"ClientId":48,"FirstName":"Фёдор","LastName":"Попов(а)","DateOfBirth":"2005-09-08T00:00:00","Address":"Красное","PassportData":"I903951","Email":"Alexandr_Znoy947@hotmail.com","PhoneNumber":"0-776-42721"}

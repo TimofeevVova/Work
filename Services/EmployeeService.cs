@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    internal class EmployeeService
+    public class EmployeeService
     {
         ApplicationContext _dbContext;
         public EmployeeService()
@@ -49,6 +49,7 @@ namespace Services
             {
                 try
                 {
+                    employee.EmployeeId = 0;
                     _dbContext.employeeData.Add(employee);
                     _dbContext.SaveChanges();                   
 

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace Models
 {
@@ -23,6 +24,7 @@ namespace Models
     [Table("employee")]
     public class Employee  // [Required]  представляет аннотацию, которая указывает, что свойство Name обязательно должно иметь значение.
     {
+        [JsonIgnore]
         [Required]
         [Column("employee_id")]
         public int EmployeeId { get; set; }
