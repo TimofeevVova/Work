@@ -15,6 +15,8 @@ namespace Helpers
         static void Main(string[] args)
         {
             ClientService clientService = new ClientService();
+            EmployeeService employeeService = new EmployeeService();
+            ExportService exportService = new ExportService();
             CashDispenserService cashDispenserService = new CashDispenserService(10);
 
             Console.WriteLine("Start program");
@@ -144,12 +146,19 @@ namespace Helpers
             Console.WriteLine($"Баланс аккаунта: {clientId} = {balanse} ");
 
 
+            Client client = clientService.GetClient(48);
+            Employee employee = employeeService.GetEmployee(21);
 
+            string filePathClient = "D:\\Work\\Work\\JsonFiles\\Clients frome DB.txt";
+            string filePathEmployee = "D:\\Work\\Work\\JsonFiles\\Employee frome DB.txt";
 
+            // запись данных в файл
+            //exportService.ExportObjectInFile(client, filePathClient);
+            //exportService.ExportObjectInFile(employee, filePathEmployee);
 
-
-
-            
+            // запись данных в БД из файла
+            //exportService.ImportObjectFromFile<Employee>(filePathEmployee);
+            //exportService.ImportObjectFromFile<Client>(filePathClient);
 
 
 

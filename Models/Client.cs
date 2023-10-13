@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace Models
 {
@@ -39,6 +40,7 @@ namespace Models
     [Table("client")]
     public class Client  // [Required]  представляет аннотацию, которая указывает, что свойство Name обязательно должно иметь значение.
     {
+        [JsonIgnore]
         [Required]
         [Column("client_id")]
         public int ClientId { get; set; }
