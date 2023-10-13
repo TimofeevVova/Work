@@ -71,31 +71,31 @@ namespace Helpers
             }
 
             // Пример фильтрации по имени и сортировки по дате рождения
-            Func<Client, bool> nameFilter = c => c.FirstName == "Лев" && (c.DateOfBirth > new DateTime(1990, 1, 1)); // условия фильтрации или null
-            Func<Client, object> orderByDateOfBirth = c => c.ClientId; // порядок сортировки или null
-            int page = 1; // выводимая страница
-            int pageSize = 10; // размер страницы
+            //Func<Client, bool> nameFilter = c => c.FirstName == "Лев" && (c.DateOfBirth > new DateTime(1990, 1, 1)); // условия фильтрации или null
+            //Func<Client, object> orderByDateOfBirth = c => c.ClientId; // порядок сортировки или null
+            //int page = 1; // выводимая страница
+            //int pageSize = 10; // размер страницы
 
             // получаем список сортированных клиентов по фильтру 
-            List<Client> result = clientService.GetFilteredClients(nameFilter, orderByDateOfBirth, page, pageSize);
+            //List<Client> result = clientService.GetFilteredClients(nameFilter, orderByDateOfBirth, page, pageSize);
 
-            // е клиенты с базы
-            nameFilter = c => true;
-            List<Client> allClient = clientService.GetFilteredClients(nameFilter, null, page, 500);
+            // клиенты с базы
+            //nameFilter = c => true;
+            //List<Client> allClient = clientService.GetFilteredClients(nameFilter, null, page, 500);
 
             // Работа с IDisposable
-            var db = new ApplicationContext();
-            Dispose testClass = new Dispose(db);
-            testClass.StartOpenConnections();
+            //var db = new ApplicationContext();
+            //Dispose testClass = new Dispose(db);
+            //testClass.StartOpenConnections();
 
 
             // Финализатор
-            int nubber = 10;
-            ConnectionAndMemory connectionAndMemory = new ConnectionAndMemory(nubber);
-            connectionAndMemory.CreateConnectionsAndMemory(nubber);
+            //int nubber = 10;
+            //ConnectionAndMemory connectionAndMemory = new ConnectionAndMemory(nubber);
+            //connectionAndMemory.CreateConnectionsAndMemory(nubber);
 
-            Console.WriteLine($"Total Allocated:{ConnectionAndMemory.TotalAllocated}");
-            Console.WriteLine($"Total Freed: {ConnectionAndMemory.TotalFreed}");
+            //Console.WriteLine($"Total Allocated:{ConnectionAndMemory.TotalAllocated}");
+            //Console.WriteLine($"Total Freed: {ConnectionAndMemory.TotalFreed}");
             /*
             Зашли в ApplicationContext
             Запрос к БД
@@ -107,9 +107,9 @@ namespace Helpers
 
 
             // путь к файлу, название файла
-            string pathToDirectory = "D:\\Work\\Work\\test";
-            string textFileName = "test2.csv";            
-            ExportService exportService = new ExportService(pathToDirectory, textFileName);
+            //string pathToDirectory = "D:\\Work\\Work\\test";
+            //string textFileName = "test2.csv";            
+            //ExportService exportService = new ExportService(pathToDirectory, textFileName);
 
             // из базы в файл
             //exportService.SaveClientToFile(allClient);
@@ -130,6 +130,7 @@ namespace Helpers
             //ThreadAndTaskTests.TestAccruals(49, 100);
 
             // списание средств с ограничением потоков
+            /*
             int i = 0;
             while ( i < 10 )
             {
@@ -137,7 +138,19 @@ namespace Helpers
                 i++;
                 Console.WriteLine("Вошли в цикл начисления");
             }
+            */
+            int clientId = 49;
+            double balanse = clientService.GetBalanse(49);
+            Console.WriteLine($"Баланс аккаунта: {clientId} = {balanse} ");
+
+
+
+
+
+
+
             
+
 
 
             Console.ReadKey();

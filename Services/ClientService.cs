@@ -193,6 +193,16 @@ namespace Services
             return paginatedResult;
         }
 
+        // получить баланс клиента
+        public double GetBalanse(int accountId)
+        {
+            Account account = _dbContext.accountData.FirstOrDefault(c => c.AccountId == accountId);
+            if(account != null)
+            {
+                return account.Amount;
+            }
+            return 0;            
+        } 
 
         // добавление баланса на счет
         public void AddBalanse(int accountId, int count)
@@ -201,9 +211,16 @@ namespace Services
 
             if (account != null)
             {
-                account.Amount += count;
-                _dbContext.SaveChanges();
-                Console.WriteLine($"В аккаунт: {accountId} начислено: {count}");
+                if (account.Amount > 0)
+                {
+                    account.Amount += count;
+                    _dbContext.SaveChanges();
+                    Console.WriteLine($"В аккаунт: {accountId} начислено: {count}");
+                }
+                else
+                {
+                    Console.WriteLine($"Неверное количество");
+                }
             }
             else
             {
