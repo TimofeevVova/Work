@@ -140,7 +140,7 @@ namespace Helpers
                 i++;
                 Console.WriteLine("Вошли в цикл начисления");
             }
-            */
+            
             int clientId = 49;
             double balanse = clientService.GetBalanse(49);
             Console.WriteLine($"Баланс аккаунта: {clientId} = {balanse} ");
@@ -151,7 +151,7 @@ namespace Helpers
 
             string filePathClient = "D:\\Work\\Work\\JsonFiles\\Clients frome DB.txt";
             string filePathEmployee = "D:\\Work\\Work\\JsonFiles\\Employee frome DB.txt";
-
+            */
             // запись данных в файл
             //exportService.ExportObjectInFile(client, filePathClient);
             //exportService.ExportObjectInFile(employee, filePathEmployee);
@@ -159,6 +159,16 @@ namespace Helpers
             // запись данных в БД из файла
             //exportService.ImportObjectFromFile<Employee>(filePathEmployee);
             //exportService.ImportObjectFromFile<Client>(filePathClient);
+
+
+            // показать курс выбранных валют
+            CurrencyService currencyService = new CurrencyService();
+            //UAH MDL RUB USD EUR
+            string fromOne = "USD";
+            string toAnother = "EUR";            
+            currencyService.ChangeVallet(fromOne, toAnother);
+
+
 
 
 
