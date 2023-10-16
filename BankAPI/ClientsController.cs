@@ -25,6 +25,20 @@ namespace BankAPI
             return Ok(client); // Вернуть успешный статус HTTP
         }
 
+        // получить всех клиентов
+        [HttpGet]
+        public IActionResult GetAllClients()
+        {
+            List<Client> clients = clientService.GetAllClients();
+
+            if (clients == null)
+            {
+                return NotFound($"Clients not found");
+            }
+            return Ok(clients); // Вернуть успешный статус HTTP
+        }
+               
+
         //добавления нового клиента,
         [HttpPost]
         public IActionResult AddClient([FromBody] Client client)

@@ -51,6 +51,11 @@ namespace Services
             return _dbContext.clientData.FirstOrDefault(c => c.ClientId == clientId);
         }
 
+        public List<Client> GetAllClients()
+        {
+            return _dbContext.clientData.ToList();
+        }
+
         //б) добавить нового клиента(автоматически создает дефолтный лицевой счет);
         public void AddClient(Client client)
         {
