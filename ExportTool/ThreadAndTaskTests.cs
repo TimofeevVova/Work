@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExportTool;
-using Helpers;
+﻿using Helpers;
 using Models;
 using Services;
 
@@ -51,7 +45,7 @@ namespace ExportTool
         //оценить равенство результирующей суммы ожидаемому результату;
         public static void TestAccruals(int clientId, int count)
         {
-            // подключение и начисление аккаунту с Id clientId баланс count
+            // подключение и начисление аккаунту с Id ClientId баланс count
             ClientService clientService = new ClientService();
             clientService.AddBalanse(clientId, count);
 

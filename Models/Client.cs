@@ -1,44 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Text.Json.Serialization;
 
 namespace Models
 {
-    // V1.0
-    /*
-    public class Client : Person //Class Клиент  (Айди Маил Телефон)
-    {
-        public List<int> IdAccounts { get; set; } // айди всех аккаунтов данного клиента
-        public int ClientId { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-
-        // переопределение
-        public override bool Equals(object obj)
-        {
-            if (obj == null || GetType() != obj.GetType())
-            {
-                return false;
-            }
-
-            Client other = (Client)obj;
-            return ClientId == other.ClientId;
-        }
-
-        public override int GetHashCode()
-        {
-            return ClientId.GetHashCode();
-        }
-    }
-    */
-    // V2.0
     [Table("client")]
-    public class Client  // [Required]  представляет аннотацию, которая указывает, что свойство Name обязательно должно иметь значение.
+    public class Client  // [Required]  представляет аннотацию, которая указывает, что свойство name обязательно должно иметь значение.
     {
         [JsonIgnore]
         [Required]

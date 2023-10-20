@@ -1,42 +1,34 @@
-﻿using Models;
-using System;
-using System.Collections.Generic;
+﻿using Bogus;
+using Models;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Services;
 
 namespace Services
 {
-    public class TestDataGenerator
+    public class DataGenerator
     {
         static Random random = new Random();
 
         //а) генерации коллекции клиентов банка;
         public static void GenerationClients(int count)
         {
-            ClientService clientService = new ClientService();            
+            ClientService clientService = new ClientService();
+            Client client = new Client();
 
             for (int i = 0; i < count; i++)
             {
-                Client client = new Client
-                {
-                    FirstName = SettingsGenerator.GetRandomFirstName(),
-                    LastName = SettingsGenerator.GetRandomName(),
-                    DateOfBirth = SettingsGenerator.GetRandomDateOfBirth(),
-                    Address = SettingsGenerator.GetRandomAddress(),                    
-                    PassportData = SettingsGenerator.GetPassportData(),
-                    Email = SettingsGenerator.GetRandomEmail(),
-                    PhoneNumber = SettingsGenerator.GetRandomPhoneNumber()
-                };
+                var faker = new Faker<Client>()
+                    .RuleFor(c => c.FirstName, f => f.Person.FirstName)
+                    .RuleFor(c => c.LastName, f => f.Person.LastName)
+                    .RuleFor(c => c.DateOfBirth, f => f.Date.Past(30))
+                    .RuleFor(c => c.Address, f => f.Address.FullAddress())
+                    .RuleFor(c => c.PassportData, f => "I" + f.Random.Number(100000, 999999))
+                    .RuleFor(c => c.Email, (f, c) => f.Internet.Email(c.FirstName, c.LastName))
+                    .RuleFor(c => c.PhoneNumber, f => f.Person.Phone);
+
+                client = faker.Generate();
 
                 clientService.AddClient(client);
-
-                //Console.WriteLine($"Id - {client.ClientId}\nИмя - {client.FirstName}\nФамилия - {client.LastName}\nДата рождения - {client.DateOfBirth}\nАдрес - {client.Address}\nМаил - {client.Email}\nТелефон - {client.PhoneNumber}\n");
             }
         }
 
@@ -59,17 +51,20 @@ namespace Services
 
             for (int i = 0; i < count; i++)
             {
-                Employee employee = new Employee
-                {
-                    FirstName = SettingsGenerator.GetRandomFirstName(),
-                    LastName = SettingsGenerator.GetRandomName(),
-                    DateOfBirth = SettingsGenerator.GetRandomDateOfBirth(),
-                    Address = SettingsGenerator.GetRandomAddress(),
-                    PassportData = SettingsGenerator.GetPassportData(),
-                    Department = SettingsGenerator.GetRandomDepartment(),
-                    Salary = SettingsGenerator.GetRandomSalary(),
-                    Contract = SettingsGenerator.GetRandomContract(),
-                };
+                Employee employee = new Employee();
+
+                var faker = new Faker<Employee>()
+                    .RuleFor(c => c.FirstName, f => f.Person.FirstName)
+                    .RuleFor(c => c.LastName, f => f.Person.LastName)
+                    .RuleFor(c => c.DateOfBirth, f => f.Date.Past(30))
+                    .RuleFor(c => c.Address, f => f.Address.FullAddress())
+                    .RuleFor(e => e.PassportData, f => "I" + f.Random.Number(100000, 999999))
+                    .RuleFor(e => e.Department, f => f.Commerce.Department())
+                    .RuleFor(e => e.Salary, f => f.Random.Number(5, 70)*100)
+                    .RuleFor(e => e.Contract, f => "N" + f.Random.Number(100, 9999));
+                
+                employee = faker.Generate();
+
                 employeeService.AddEmployee(employee);
             }
         }
@@ -217,101 +212,16 @@ namespace Services
             Console.WriteLine($"Поиск по ключу занял {searchTime2} тиков.");
             Console.WriteLine("\n");
         }
-
-        /*
-        //реализовать метод, генерирующий словарь, где в качестве ключа находятся клиенты, а в качестве значения их банковский счет;
-        public static Dictionary<Client, Account> CreateDictionaryClientAccount(List<Client> clients)
-        {
-            Dictionary<Client, Account> dictionary = new Dictionary<Client, Account>();
-            Account account = new Account();            
-
-            foreach (Client client in clients)
-            {
-                account = GenerateNewAccount();
-                dictionary[client] = account;
-                //Console.WriteLine($"{client.ClientId} - {account.Amount}");
-            }
-            return dictionary;
-        }
-        */
-
-
-
-        // метод, генерирующий словарь, где в качестве ключа находятся клиенты, а в качестве значения несколько банковских счетов;
-        /*
-       public static Dictionary<Client, List<Account>> CreateDictionaryClientAccountList(List<Client> clients)
-       {
-           Dictionary<Client, List<Account>> dictionary = new Dictionary<Client, List<Account>>();
-
-           foreach (Client client in clients)
-           {
-               List<Account> accounts = new List<Account>
-               {
-                   GenerateNewAccount(),
-                   GenerateNewAccount()
-               };
-               dictionary[client] = accounts;
-
-               Console.WriteLine($"Клиент {client.FirstName} {client.LastName} имеет {accounts.Count} аккаунты:");
-               foreach (Account account in accounts)
-               {
-                   Console.WriteLine($" Id аккаунта: {account.AccountId}. Баланс: {account.Amount}");
-               }
-           }
-
-           return dictionary;
-       }
-       */
-
-        /*
-        // генерация нового аккаунта
-        public static Account GenerateNewAccount()
-        {
-            // создаем сам аккаунт
-            Account account = new Account()
-            {
-
-                //AccountId = random.Next(10, 99999),
-                AccountId = 0,
-                Currency = GenerateCurrency(),
-                Amount = 0, // random.Next(0, 99999)
-            };
-
-            return account;
-
-        }
-        */
-
+                
         public static Currency GenerateCurrency()
         {
             Currency currency = new Currency()
             {
-                Name = "USD",
+                name = "USD",
                 ExchangeRate = 16.3,
             };
 
             return currency;
-        }
-        /*
-        public static void ViewDataClientAccounts(Dictionary<Client, List<Account>> Data, Client client)
-        {
-            if (ClientService.DoesClientHaveAccounts(Data, client))
-            {
-                // получаем существующий список аккаунтов клиента
-                List<Account> accountList = Data[client];
-
-                Console.WriteLine($"Аккаунты клиента {client.FirstName}:");
-                foreach (Account account in accountList)
-                {
-                    Console.WriteLine("Старт");
-                    Console.WriteLine($"Id аккаунта: {account.AccountId}. Баланс: {account.Amount}");
-                }
-            }
-            else 
-            {
-                Console.WriteLine("Данных нет");
-            }            
-        }
-        */
+        }        
     }
 }

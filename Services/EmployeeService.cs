@@ -1,10 +1,5 @@
 ﻿using Helpers;
 using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services
 {
@@ -22,7 +17,14 @@ namespace Services
         {
             if (employee != null)
             {
-                Console.WriteLine($"ID: {employee.EmployeeId} Имя: {employee.FirstName}, Фамилия: {employee.LastName} Адрес: {employee.Address}, ДатаРожд: {employee.DateOfBirth.ToString("yyyy-MM-dd")}, Отдел: {employee.Department}, ЗП: {employee.Salary}, Контракт: {employee.Contract}");
+                Console.WriteLine($"ID: {employee.EmployeeId} " +
+                    $"Имя: {employee.FirstName}, " +
+                    $"Фамилия: {employee.LastName} " +
+                    $"Адрес: {employee.Address}, " +
+                    $"ДатаРожд: {employee.DateOfBirth.ToString("yyyy-MM-dd")}, " +
+                    $"Отдел: {employee.Department}, " +
+                    $"ЗП: {employee.Salary}, " +
+                    $"Контракт: {employee.Contract}");
             }
             else { Console.WriteLine("Такого Id нет в базе данных"); }
         }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Services
+﻿namespace Services
 {
     public class CashDispenserService // ограничение одновременных снятий со счета
     {
@@ -24,7 +18,7 @@ namespace Services
                 Console.WriteLine($"Клиент {clientId} начал обналичивание {amount}...");
 
                 // метод списания
-                clientService.WritingOffMoney(clientId,amount);
+                clientService.SubtractBalance(clientId,amount);
                 
 
                 Console.WriteLine($"Клиент {clientId} успешно обналичил {amount}.");

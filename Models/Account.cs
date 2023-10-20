@@ -8,21 +8,8 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    /*
-    // V1.0
-    public class Account : Client // банковский счет клиента (Основной Айди Валюта Сумма)
-    {
-        public int AccountId { get; set; }
-        public Currency Currency { get; set; }
-        public int Amount { get; set; }
-        public int OwnerId { get; set; } // id клиента данного аккаунта
-
-    }
-    */
-
-    // V2.0
     [Table("account")]
-    public class Account  // [Required]  представляет аннотацию, которая указывает, что свойство Name обязательно должно иметь значение.
+    public class Account  // [Required]  представляет аннотацию, которая указывает, что свойство name обязательно должно иметь значение.
     {
         [Required]
         [Column("account_id")]

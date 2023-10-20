@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Http;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Services
 {
@@ -29,7 +22,7 @@ namespace Services
                 string apiKey = "SLfE6cGHMGS7GN7xtJhkxWC9AWky7N";
                 //UAH MDL RUB USD EUR
 
-                string apiUrl = $"https://www.amdoren.com/api/currency.php?api_key={apiKey}&from={fromOne}&to={toAnother}";
+                string apiUrl = $"https://www.amdoren.com/api/Currency.php?api_key={apiKey}&from={fromOne}&to={toAnother}";
 
                 using (HttpClient client = new HttpClient())
                 {

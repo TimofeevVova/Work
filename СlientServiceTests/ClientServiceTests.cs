@@ -27,7 +27,7 @@ namespace СlientServiceTests
             double balanse = clientService.GetBalanse(49);
 
             // Act
-            clientService.WritingOffMoney(49, 100);
+            clientService.SubtractBalance(49, 100);
             double newBalanse = clientService.GetBalanse(49);
 
             // Assert

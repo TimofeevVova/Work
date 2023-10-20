@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Services;
+﻿using Microsoft.AspNetCore.Mvc;
 using Models;
+using Services;
 
-namespace BankAPI
+namespace BankAPI.Controllers
 {
     [Route("api/[controller]")]
     public class ClientsController : Controller
@@ -37,7 +36,7 @@ namespace BankAPI
             }
             return Ok(clients); // Вернуть успешный статус HTTP
         }
-               
+
 
         //добавления нового клиента,
         [HttpPost]
@@ -48,7 +47,7 @@ namespace BankAPI
         }
 
         //изменение клиента по идентификатору,
-        [HttpPatch("{clientId}")]
+        [HttpPatch("{ClientId}")]
         public IActionResult UpdateClient(int clientId, [FromBody] Client client)
         {
             clientService.UpdateClient(clientId, client);
@@ -56,7 +55,7 @@ namespace BankAPI
         }
 
         //удаления клиента,
-        [HttpDelete("{clientId}")]
+        [HttpDelete("{ClientId}")]
         public IActionResult RemoveClient(int clientId)
         {
             Client client = clientService.GetClient(clientId);

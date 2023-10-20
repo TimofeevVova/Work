@@ -1,11 +1,4 @@
-﻿using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Helpers
+﻿namespace Helpers
 {
     internal class Program
     {
@@ -21,7 +14,12 @@ namespace Helpers
 
                 foreach (var client in allClients)
                 {
-                    Console.WriteLine($"ID: {client.ClientId} Имя: {client.FirstName}, Фамилия: {client.LastName} Адрес: {client.Address}, ДатаРожд: {client.DateOfBirth.ToString("yyyy-MM-dd")}, Email: {client.Email}");
+                    Console.WriteLine($"ID: {client.ClientId} " +
+                        $"Имя: {client.FirstName}, " +
+                        $"Фамилия: {client.LastName} " +
+                        $"Адрес: {client.Address}, " +
+                        $"ДатаРожд: {client.DateOfBirth.ToString("yyyy-MM-dd")}, " +
+                        $"Email: {client.Email}");
                 }
             }
 

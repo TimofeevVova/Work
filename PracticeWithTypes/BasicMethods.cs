@@ -1,11 +1,6 @@
 ﻿using Models;
 using Services;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PracticeWithTypes
 {
@@ -45,14 +40,14 @@ namespace PracticeWithTypes
             };
             Currency usd = new Currency // заполнение валюты
             {
-                Name = "USD",
+                name = "USD",
                 ExchangeRate = 16.3
             };
 
             Console.WriteLine($"Person: {vanya.FirstName} {vanya.LastName}, Дата рождения: {vanya.DateOfBirth}");
             Console.WriteLine($"Employee: {petya.FirstName} {petya.LastName}, ID сотрудника: {petya.EmployeeId}, Зарплата: {petya.Salary}");
             Console.WriteLine($"Client: {anna.FirstName} {anna.LastName}, ID клиента: {anna.ClientId}, Email: {anna.Email}, Телефон: {anna.PhoneNumber}");
-            Console.WriteLine($"Валюта: {usd.Name}, Обменный курс: {usd.ExchangeRate}");
+            Console.WriteLine($"Валюта: {usd.name}, Обменный курс: {usd.ExchangeRate}");
 
         }
 
@@ -70,7 +65,7 @@ namespace PracticeWithTypes
 
             Currency currency = new Currency
             {
-                Name = "Доллар",
+                name = "Доллар",
                 ExchangeRate = 1.0
             };
             Console.WriteLine("\n");
@@ -152,7 +147,7 @@ namespace PracticeWithTypes
                 Address = "Суклея",
 
                 ClientId = 1,
-                Email = "client@example.com",
+                Email = "Client@example.com",
                 PhoneNumber = "123-456-7890"
             };
 

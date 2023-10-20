@@ -8,7 +8,7 @@ namespace Models
 {
     public struct Currency //Struct Валюта   (Тип курс)
     {
-        public string Name { get; set; }
+        public string name { get; set; }
         public double ExchangeRate { get; set; }
     }
 }

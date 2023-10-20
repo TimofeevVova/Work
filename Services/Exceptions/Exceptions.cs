@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Models;
-
-namespace Services.Exceptions
+﻿namespace Services.Exceptions
 {
     //(в проект Services добавить папку Exceptions, в которую добавить собственный класс исключения);
     public class ExceptionAge : Exception

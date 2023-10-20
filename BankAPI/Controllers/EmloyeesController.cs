@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Services;
+﻿using Microsoft.AspNetCore.Mvc;
 using Models;
+using Services;
 
-namespace BankAPI
+namespace BankAPI.Controllers
 {
     [Route("api/[controller]")]
     public class EmloyeesController : Controller

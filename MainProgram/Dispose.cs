@@ -1,11 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
-using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using Models;
-using Helpers;
+﻿using Helpers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace MainProgram
 {

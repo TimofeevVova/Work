@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Helpers;
 using Models;
-using Services;
-using Services.Exceptions;
-using System.Net;
-using Services.Storage;
-using Helpers;
-using static Helpers.ApplicationContext;
 
 namespace Services
 {
@@ -31,7 +21,13 @@ namespace Services
         {
             if (client != null)
             {
-                Console.WriteLine($"ID: {client.ClientId} Имя: {client.FirstName}, Фамилия: {client.LastName} Адрес: {client.Address}, ДатаРожд: {client.DateOfBirth.ToString("yyyy-MM-dd")}, Email: {client.Email}, Phone: {client.PhoneNumber}");
+                Console.WriteLine($"ID: {client.ClientId} " +
+                    $"Имя: {client.FirstName}, " +
+                    $"Фамилия: {client.LastName} " +
+                    $"Адрес: {client.Address}, " +
+                    $"ДатаРожд: {client.DateOfBirth.ToString("yyyy-MM-dd")}, " +
+                    $"Email: {client.Email}, " +
+                    $"Phone: {client.PhoneNumber}");
             }
             else { Console.WriteLine("Такого Id нет в базе данных"); }
         }
@@ -51,9 +47,13 @@ namespace Services
             return _dbContext.clientData.FirstOrDefault(c => c.ClientId == clientId);
         }
 
-        public List<Client> GetAllClients()
+        public List<Client> GetAllClients(int page = 1, int pageSize = int.MaxValue)
         {
-            return _dbContext.clientData.ToList();
+            int skipAmount = (page - 1) * pageSize;
+
+            var clients = _dbContext.clientData.Skip(skipAmount).Take(pageSize).ToList();
+
+            return clients;
         }
 
         //б) добавить нового клиента(автоматически создает дефолтный лицевой счет);
@@ -127,7 +127,7 @@ namespace Services
 
                     if (existingClient != null)
                     {
-                        //existingClient.ClientId = client.ClientId != 0 ? client.ClientId : existingClient.ClientId;
+                        //existingClient.ClientId = Client.ClientId != 0 ? Client.ClientId : existingClient.ClientId;
                         existingClient.FirstName = client.FirstName != null ? client.FirstName : existingClient.FirstName;
                         existingClient.LastName = client.LastName != null ? client.LastName : existingClient.LastName;
                         existingClient.DateOfBirth = client.DateOfBirth != default(DateTime) ? client.DateOfBirth : existingClient.DateOfBirth;
@@ -158,7 +158,6 @@ namespace Services
                 _dbContext.clientData.Remove(client);
                 _dbContext.SaveChanges();
             }
-            else { Console.WriteLine("Такого пользователя нет в базе данных"); }
         }
 
         //0000е) удалить лицевой счет клиента;
@@ -174,7 +173,8 @@ namespace Services
             else { Console.WriteLine("Такого аккаунта нет в базе данных"); }
         }
 
-        //0000ж) метод возвращающий список клиентов, удовлетворяющих фильтру(+ пагинация) (протестировать на операторах Where, OrderBy, GroupBy, Take, посмотреть sql, в логах(консоли), оценить отличие от Linq;
+        //0000ж) метод возвращающий список клиентов, удовлетворяющих фильтру(+ пагинация)
+        //(протестировать на операторах Where, OrderBy, GroupBy, Take, посмотреть sql, в логах(консоли), оценить отличие от Linq;
         //0000з) в рамках пункта “ж”, в режиме отладки, проследить в какой момент времени формируемый из сегментов фильтра зарос, выполняется.
 
         public List<Client> GetFilteredClients(Func<Client, bool> filter, Func<Client, object> orderBy, int pageNumber, int pageSize)
@@ -230,7 +230,7 @@ namespace Services
         }
 
         // списание баланса со счета
-        public void WritingOffMoney(int accountId, double count)
+        public void SubtractBalance(int accountId, double count)
         {
             Account account = _dbContext.accountData.FirstOrDefault(c => c.AccountId == accountId);
 

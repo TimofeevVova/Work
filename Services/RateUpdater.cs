@@ -1,10 +1,6 @@
 ﻿using Helpers;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Models;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Services
 {

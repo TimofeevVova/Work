@@ -1,28 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Text.Json.Serialization;
 
 namespace Models
 {
-    /*
-     V1.0
-    public class Employee : Person //Class Сотрудник  (Айди Отделение Зарплата Контракт)
-    {
-        public int EmployeeId { get; set; }
-        public string Department { get; set; }
-        public decimal Salary { get; set; }
-        public string Contract { get; set; }
-    }
-    */
-
-    // V2.0
     [Table("employee")]
-    public class Employee  // [Required]  представляет аннотацию, которая указывает, что свойство Name обязательно должно иметь значение.
+    public class Employee  // [Required]  представляет аннотацию, которая указывает, что свойство name обязательно должно иметь значение.
     {
         [JsonIgnore]
         [Required]

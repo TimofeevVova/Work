@@ -3,11 +3,8 @@ using CsvHelper.Configuration;
 using Models;
 using Newtonsoft.Json;
 using Services;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Text;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ExportTool
 {
@@ -49,11 +46,11 @@ namespace ExportTool
         }
 
         // из файла в БД
-        public void FromFileToDB(string FileName)
+        public void FromFileToDB(string fileName)
         {
             
 
-            string fullPath = Path.Combine(_pathToDirectory, FileName);
+            string fullPath = Path.Combine(_pathToDirectory, fileName);
 
             using (var reader = new StreamReader(fullPath))
             using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = ";" }))
