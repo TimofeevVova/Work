@@ -7,15 +7,19 @@ namespace BankAPI.Controllers
     [Route("api/[controller]")]
     public class ClientsController : Controller
     {
-        ClientService clientService = new ClientService();
+        private readonly ClientService _clientService;
 
+        public ClientsController(ClientService clientService)
+        {
+            _clientService = clientService;
+        }
         //В контроллере реализуем методы:
 
         //получения клиента по идентификатору,
         [HttpGet("{ClientId}")]
         public IActionResult GetClient(int ClientId)
         {
-            Client client = clientService.GetClient(ClientId);
+            Client client = _clientService.GetClient(ClientId);
 
             if (client == null)
             {
@@ -28,7 +32,7 @@ namespace BankAPI.Controllers
         [HttpGet]
         public IActionResult GetAllClients()
         {
-            List<Client> clients = clientService.GetAllClients();
+            List<Client> clients = _clientService.GetAllClients();
 
             if (clients == null)
             {
@@ -42,7 +46,7 @@ namespace BankAPI.Controllers
         [HttpPost]
         public IActionResult AddClient([FromBody] Client client)
         {
-            clientService.AddClient(client);
+            _clientService.AddClient(client);
             return Ok();
         }
 
@@ -50,7 +54,7 @@ namespace BankAPI.Controllers
         [HttpPatch("{ClientId}")]
         public IActionResult UpdateClient(int clientId, [FromBody] Client client)
         {
-            clientService.UpdateClient(clientId, client);
+            _clientService.UpdateClient(clientId, client);
             return Ok();
         }
 
@@ -58,11 +62,11 @@ namespace BankAPI.Controllers
         [HttpDelete("{ClientId}")]
         public IActionResult RemoveClient(int clientId)
         {
-            Client client = clientService.GetClient(clientId);
+            Client client = _clientService.GetClient(clientId);
 
             if (client != null)
             {
-                clientService.RemoveClient(clientId);
+                _clientService.RemoveClient(clientId);
                 return Ok();
             }
             else

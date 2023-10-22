@@ -9,8 +9,7 @@ namespace MainProgram
     {
         public static long TotalFreed { get; private set; }
         public static long TotalAllocated { get; private set; }
-        //private NpgsqlConnection _connection;
-       //private var _connection = _dbContext.Database.GetDbConnection();
+
         private NpgsqlConnection _connection = new NpgsqlConnection(_dbContext.Database.GetDbConnection().ConnectionString);
 
         private IntPtr _chunkHandle; // адрес в неуправляемой памяти

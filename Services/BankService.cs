@@ -4,7 +4,7 @@ namespace Services
 {
     public class BankService
     {
-        // Расчет зарплаиты по доходам\расходам
+        // Расчет зарплаты по доходам\расходам
         public static int SalaryCalculation(int profit, int expenses, List<Employee> employees)
         {
             int countDirectors = 0;

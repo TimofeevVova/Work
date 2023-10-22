@@ -160,7 +160,7 @@ namespace Services
             }
         }
 
-        //0000е) удалить лицевой счет клиента;
+        //е) удалить лицевой счет клиента;
         public void RemoveAccount(int accountId)
         {
             Account account = _dbContext.accountData.FirstOrDefault(c => c.AccountId == accountId);
@@ -173,9 +173,9 @@ namespace Services
             else { Console.WriteLine("Такого аккаунта нет в базе данных"); }
         }
 
-        //0000ж) метод возвращающий список клиентов, удовлетворяющих фильтру(+ пагинация)
+        //ж) метод возвращающий список клиентов, удовлетворяющих фильтру(+ пагинация)
         //(протестировать на операторах Where, OrderBy, GroupBy, Take, посмотреть sql, в логах(консоли), оценить отличие от Linq;
-        //0000з) в рамках пункта “ж”, в режиме отладки, проследить в какой момент времени формируемый из сегментов фильтра зарос, выполняется.
+        //з) в рамках пункта “ж”, в режиме отладки, проследить в какой момент времени формируемый из сегментов фильтра зарос, выполняется.
 
         public List<Client> GetFilteredClients(Func<Client, bool> filter, Func<Client, object> orderBy, int pageNumber, int pageSize)
         {
